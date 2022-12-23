@@ -1,6 +1,7 @@
 const express = require('express'),
         app = express(),
-        morgan = require('morgan');
+        morgan = require('morgan'),
+        mongoose = require('mongoose');
 
 require('dotenv/config')
 
@@ -22,6 +23,11 @@ app.post( api + '/products', (req, res) => {
         const product = req.body;
         res.send(product)
 })
+
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.CONNECTION_STRING)
+.then(() => console.log("connection successful"))
+.catch(err => console.log(err))
 
 
 app.listen(3000, () => {
