@@ -1,7 +1,12 @@
 const express = require('express'),
         app = express(),
         morgan = require('morgan'),
-        mongoose = require('mongoose');
+        mongoose = require('mongoose'),
+        productRoutes = require('./router/product.js'),
+        orderRoutes = require('./router/orders'),
+        categoryRoutes = require('./router/categories'),
+        userRoutes = require('./router/users');
+
 
 require('dotenv/config')
 
@@ -11,38 +16,12 @@ const api = process.env.API_URL;
 app.use(express.json())
 app.use(morgan('tiny'))
 
-const productSchema = mongoose.Schema({
-        name: String,
-        image: String,
-        countInStock: {type: String, required: true}
-})
+// routes
+app.use(api + '/products', productRoutes)
+app.use(api + '/orders', orderRoutes)
+app.use(api + '/category', categoryRoutes)
+app.use(api + '/user', userRoutes)
 
-const Product = mongoose.model('Product', productSchema)
-
-app.get( api + '/products', async (req, res) => {
-        const product =  await Product.find()
-
-        if(!product) {
-                res.status(500).json({
-                        error: "error occured"
-                })
-        }
-
-        res.status(200).json({
-                success: true,
-                data: product
-        })
-
-})
-app.post( api + '/products', (req, res) => {
-        const {name, image, countInStock} = req.body;
-        const product = new Product({
-                name, image, countInStock
-        })
-        product.save()
-                .then(createedProduct => res.status(201).json({createedProduct}))
-                .catch(err => res.status(500).json({err, success: false}))
-})
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.CONNECTION_STRING)
