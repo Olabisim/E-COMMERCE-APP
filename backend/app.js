@@ -5,12 +5,17 @@ const express = require('express'),
         productRoutes = require('./router/product.js'),
         orderRoutes = require('./router/orders'),
         categoryRoutes = require('./router/categories'),
-        userRoutes = require('./router/users');
+        userRoutes = require('./router/users'),
+        cors = require('cors');
 
 
 require('dotenv/config')
 
 const api = process.env.API_URL;
+
+// cors 
+app.use(cors())
+app.options('*', cors())
 
 // middleware 
 app.use(express.json())
