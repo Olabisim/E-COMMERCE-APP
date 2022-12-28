@@ -11,6 +11,16 @@ router.get('/', async (_, res) => {
         res.status(200).json({success: true, data: category})
 })
 
+// getting single category
+router.get('/:id', async (req, res) => {
+        const category = await Category.findById(req.params.id)
+
+        if(!category) res.status(500).json({success: false})
+
+        res.status(200).json({success: true, data: category, message: "category was found"})
+})
+
+
 router.post('/', async (req, res) => {
         const {name, color, icon} = req.body;
         
