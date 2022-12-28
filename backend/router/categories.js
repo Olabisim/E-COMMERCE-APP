@@ -20,6 +20,16 @@ router.get('/:id', async (req, res) => {
         res.status(200).json({success: true, data: category, message: "category was found"})
 })
 
+router.put('/:id', async (req, res) => {
+
+        const {name, icon, color} = req.body;
+
+        const category = await Category.findByIdAndUpdate(req.params.id, {name, icon, color}, {new: true})
+
+        if(!category) res.status(500).json({success: false})
+
+        res.status(200).json({success: true, data: category, message: "category updated!!!"})
+})
 
 router.post('/', async (req, res) => {
         const {name, color, icon} = req.body;
