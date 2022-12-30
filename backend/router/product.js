@@ -20,6 +20,14 @@ router.get('/', async (_, res) => {
 
 })
 
+router.get('/:id', async (req, res) => {
+        const product = await Product.findById(req.params.id).select('name image -_id')
+
+        if(!product) res.status(500).json({error: 'error occured'})
+
+        res.status(200).json({success: true, data: product})
+})
+
 
 router.post('/', async (req, res) => {
 
