@@ -82,6 +82,17 @@ router.get('/get/count', async (_, res) => {
 
         res.status(200).json({success: true, message: "counted successfully", count: productCount})
 
+})
+
+router.get('/get/features/:count', async ({params}, res) => {
+
+        const count = params.count ? params.count : 0;
+
+        const productFeatures = await Product.find({isFeatured: true}).limit(+count)
+
+        if(!productFeatures) res.status(400).json({success: false, message: "can't find productFeatures"})
+
+        res.status(200).json({success: true, message: "counted features successfully", products: productFeatures })
 
 })
 
