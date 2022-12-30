@@ -5,7 +5,7 @@ const {Category} = require('../model/category')
 
 
 router.get('/', async (_, res) => {
-        const product =  await Product.find()
+        const product =  await Product.find().populate('category')
 
         if(!product) {
                 res.status(500).json({
@@ -21,7 +21,7 @@ router.get('/', async (_, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-        const product = await Product.findById(req.params.id).select('name image -_id')
+        const product = await Product.findById(req.params.id)
 
         if(!product) res.status(500).json({error: 'error occured'})
 
