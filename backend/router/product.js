@@ -25,12 +25,14 @@ router.post('/', async (req, res) => {
 
         const {name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured} = req.body;
 
-        const categoryCollected = await Category.findById(category)
+        Category.findById(category)
+                .then((category) => {
+                        if(!category) res.status(400).json({success: false, message: "category cannot be  found"})
+                })
 
-        if(!categoryCollected) res.status(400).json({success: false, message: "category cannot be  found"})
 
         const product = new Product({
-                name,description, richDescription, image, images, price, category: categoryCollected, countInStock, rating, numReviews, isFeatured
+                name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured
         })
 
         product.save()
