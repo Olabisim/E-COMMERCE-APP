@@ -6,7 +6,8 @@ const express = require('express'),
         orderRoutes = require('./router/orders'),
         categoryRoutes = require('./router/categories'),
         userRoutes = require('./router/users'),
-        cors = require('cors');
+        cors = require('cors'),
+        authJwt =  require('./helpers/jwt')
 
 
 require('dotenv/config')
@@ -20,6 +21,7 @@ app.options('*', cors())
 // middleware 
 app.use(express.json())
 app.use(morgan('tiny'))
+app.use(authJwt())
 
 // routes
 app.use(api + '/products', productRoutes)
