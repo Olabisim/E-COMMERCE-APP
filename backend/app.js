@@ -7,7 +7,8 @@ const express = require('express'),
         categoryRoutes = require('./router/categories'),
         userRoutes = require('./router/users'),
         cors = require('cors'),
-        authJwt =  require('./helpers/jwt')
+        authJwt =  require('./helpers/jwt');
+        // errorHandler = require('./helpers/errorHandler')
 
 
 require('dotenv/config')
@@ -22,6 +23,7 @@ app.options('*', cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(authJwt())
+// app.use(errorHandler())
 
 // routes
 app.use(api + '/products', productRoutes)
