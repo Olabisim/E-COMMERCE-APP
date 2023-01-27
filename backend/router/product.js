@@ -4,8 +4,13 @@ const {Product} = require('../model/Product')
 const {Category} = require('../model/category')
 
 
-router.get('/', async (_, res) => {
-        const product =  await Product.find().populate('category')
+router.get('/', async (req, res) => {
+
+        let filter = {}
+
+        if(req.query.categories) filter =  {category: req.query.categories.split(',')}
+
+        const product =  await Product.find(filter).populate('category')
 
         if(!product) {
                 res.status(500).json({
