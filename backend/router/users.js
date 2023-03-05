@@ -56,7 +56,7 @@ router.post('/login', async (req,res) => {
             const token = jwt.sign(
                 {
                     userId: user.id,
-                    isAdmin: user.isAdmin
+                    isAdmin: user.isAdmin // to allow access if user is admin
                 },
                 secret,
                 {expiresIn : '1w'}
@@ -69,5 +69,22 @@ router.post('/login', async (req,res) => {
     
         
     })
+
+router.delete('/:id', (req, res) => {
+    User.findByIdAndRemove(req.params.id).then(user => {
+        if(user) return res.status(200).json({success: true, message: 'the user is deleted right?? ', category})
+
+        else return res.status(404).json({success: false, message: 'user not found', })
+    })
+})
+
+
+router.get(`/get/count`, async (req, res) => {
+    const userCount = await User.countDocuments()
+
+    if(!userCount) res.status(500).json({success: false})
+
+    res.send({userCount})
+})
 
 module.exports =  router;
