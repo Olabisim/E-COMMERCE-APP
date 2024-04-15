@@ -24,9 +24,9 @@ const orderSchema = mongoose.Schema({
 
 })
 
-orderSchema.virtuals('id').get(function() {
-        return this._id.toHexString()
-})
+// orderSchema.virtuals('id').get(function() {
+//         return this._id.toHexString()
+// })
 
 orderSchema.set('toJSON', {
         virtuals: true

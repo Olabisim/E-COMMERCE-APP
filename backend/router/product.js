@@ -8,8 +8,15 @@ router.get('/', async (req, res) => {
 
         let filter = {}
 
-        if(req.query.categories) filter =  {category: req.query.categories.split(',')}
+        // req.categories is getting the number of categories by the string query 
+        // the query is the field after the question mark....
 
+        if(req.query.categories) filter =  {category: req.query.categories.split(',')}
+        // Product.find().select('name image -_id') // only display names and images removing the _id because of the - at the front. 
+        // with populate category it will fill all the generated products with category.  
+
+
+        // if there is something to filter it will filter, if there is nothing to filter it won't
         const product =  await Product.find(filter).populate('category')
 
         if(!product) {
@@ -26,7 +33,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-        const product = await Product.findById(req.params.id)
+        // displaying a product with category details
+        const product = await Product.findById(req.params.id).populate('category') //populate means any connected field will be filled in the document. 
 
         if(!product) res.status(500).json({error: 'error occured'})
 
@@ -49,7 +57,7 @@ router.post('/', async (req, res) => {
         })
 
         product.save()
-                .then(createedProduct => res.status(201).json({createedProduct}))
+                .then(createdProduct => res.status(201).json({createdProduct}))
                 .catch(err => res.status(500).json({err, success: false}))
                 
 })
@@ -80,7 +88,8 @@ router.delete('/:id', ({params}, res) => {
 })
 
 router.get('/get/count', async (_, res) => {
-
+        
+        // const productCount = await Producr.countDocuments((count) => count) 
         const productCount = await Product.countDocuments()
 
         if(!productCount) res.status(400).json({success: false, message: "can't find productCount" })
@@ -90,11 +99,13 @@ router.get('/get/count', async (_, res) => {
 })
 
 router.get('/get/features/:count', async ({params}, res) => {
-
+ 
         const count = params.count ? params.count : 0;
 
+        // .limit is limited to the total number of the available document. 
+        // adding a plus behind the count make it a number from a string, plus at the front changes the datatype from a string to a number
         const productFeatures = await Product.find({isFeatured: true}).limit(+count)
-
+ 
         if(!productFeatures) res.status(400).json({success: false, message: "can't find productFeatures"})
 
         res.status(200).json({success: true, message: "counted features successfully", products: productFeatures })
@@ -102,4 +113,4 @@ router.get('/get/features/:count', async ({params}, res) => {
 })
 
 
-module.exports = router
+module.exports = router;

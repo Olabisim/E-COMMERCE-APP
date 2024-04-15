@@ -15,9 +15,9 @@ const productSchema = mongoose.Schema({
         numReviews: {type: Number, default: 0},
         isFeatured: {type: Boolean, default: false},
         dateCreated: {type: Date, default: Date.now}
-
 })
 
+// this changes the _id to id to make it frontend friendlt
 productSchema.virtual('id').get( function() { return this._id.toHexString()});
 
 productSchema.set('toJSON', {virtuals: true})
