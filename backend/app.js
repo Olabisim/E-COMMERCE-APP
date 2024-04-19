@@ -1,3 +1,5 @@
+// const errorHandler = require('./helpers/errorHandler.js');
+
 const express = require('express'),
         app = express(),
         morgan = require('morgan'),

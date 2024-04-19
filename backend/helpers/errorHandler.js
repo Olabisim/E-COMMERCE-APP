@@ -1,3 +1,9 @@
+
+
+// this function will run if there is any error in the code. 
+
+// errn
+
 function errorHandler(err, req, res, next) {
         if (err?.name === 'UnauthorizedError') {
             // jwt authentication error
@@ -13,4 +19,4 @@ function errorHandler(err, req, res, next) {
         return res?.status(500).json(err);
     }
     
-    module.exports = errorHandler;
+// module.exports = errorHandler;

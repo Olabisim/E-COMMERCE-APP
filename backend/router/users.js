@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken')
 
 
 router.get('/', async (_, res) => {
+        // excluding fields with the - 
+        // .select('name') will only select the name.
         const user = await User.find().select("-passwordHash");
 
         if(!user) res.status(500).json({success: false})
@@ -26,6 +28,7 @@ router.post('/', async (req,res)=>{
         let user = new User({
             name: req.body.name,
             email: req.body.email,
+            // bcrypt password after getting the password.
             passwordHash: bcrypt.hashSync(req.body.password, 10),
             phone: req.body.phone,
             isAdmin: req.body.isAdmin,
@@ -53,22 +56,24 @@ router.post('/login', async (req,res) => {
         }
     
         if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+            
+            // creating token and sending the token 
+            
             const token = jwt.sign(
                 {
                     userId: user.id,
                     isAdmin: user.isAdmin // to allow access if user is admin
                 },
                 secret,
-                {expiresIn : '1w'}
+                {expiresIn : '1w'} // to expire in a week.
             )
            
-            res.status(200).send({user: user.email , token: token}) 
+            return res.status(200).send({user: user.email , token: token}) 
         } else {
-           res.status(400).send('password is wrong!');
+           return res.status(400).send('password is wrong!');
         }
-    
         
-    })
+})
 
 router.delete('/:id', (req, res) => {
     User.findByIdAndRemove(req.params.id).then(user => {
