@@ -5,16 +5,31 @@ const {Category} = require('../model/category')
 const multer = require('multer')
 
 
+// list of extensions to be allowed to be uploaded
+const FILE_TYPE_MAP = {
+        'image/png': 'png',
+        'image/jpeg': 'jpeg',
+        'image/jpg': 'jpg',
+};
+    
+
+
 const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-          cb(null, 'public/uploads')
+                const isValid = FILE_TYPE_MAP[file.mimetype];
+                let uploadError = new Error('invalid image type');
+                if (isValid) uploadError = null;
+                cb(uploadError, 'public/uploads');
         },
         filename: function (req, file, cb) {
 
-        const fileName = file.originalname.split(' ').join('-')
-        //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        //   cb(null, fileName + '-' + Date.now())  // before adjusting the whole file names.
-        cb(null, `${fileName}-${Date.now()}.${extension}`)
+                const fileName = file.originalname.split(' ').join('-')
+                const extension = FILE_TYPE_MAP[file.mimetype];
+
+                // file mimetype includes the details of the extension - it automatically assings the extension that was picked.
+                //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+                //   cb(null, fileName + '-' + Date.now())  // before adjusting the whole file names.
+                cb(null, `${fileName}-${Date.now()}.${extension}`)
         }
 })
       
