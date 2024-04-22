@@ -3,6 +3,7 @@ const router = express.Router()
 const {Product} = require('../model/Product')
 const {Category} = require('../model/category')
 const multer = require('multer')
+const { default: mongoose } = require('mongoose')
 
 
 // list of extensions to be allowed to be uploaded
@@ -110,15 +111,31 @@ router.post('/', uploadOptions.single('image'), async (req, res) => {
                 
 })
 
-router.put('/:id', ({params, body}, res) => {
+router.put('/:id', uploadOptions.single('image'), async ({params, body, file, protocol, get}, res) => {
+
+        // checking for invalid object id
+        if(!mongoose.isValidObjectId(params.id)) return res.status(400).send('Invalid Product Id')
+
 
         Category.findById(body.category)
         .then(category => {if (!category) res.status(400).json({success: false, message: "category not found"})})
 
-        
-        const {name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured} = body;
+        const product = await Product.findById(params.id);
+        if(!product) return res.status(400).send('Invalid Product!');
 
-        Product.findByIdAndUpdate(params.id, {name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured}, {new: true})
+        let imagepath;
+        
+        if (file) {
+                const fileName = file.filename;
+                const basePath = `${protocol}://${get('host')}/public/uploads/`;
+                imagepath = `${basePath}${fileName}`;
+        } else {
+                imagepath = product.image;
+        }
+        
+        const {name,description, richDescription, price, category, countInStock, rating, numReviews, isFeatured} = body;
+
+        Product.findByIdAndUpdate(params.id, {name,description, richDescription, image: imagepath, price, category, countInStock, rating, numReviews, isFeatured}, {new: true})
 
         .then((data) => res.status(200).json({success: true, data }))
 
