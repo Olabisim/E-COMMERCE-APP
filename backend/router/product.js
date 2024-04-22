@@ -2,6 +2,23 @@ const express = require('express')
 const router = express.Router()
 const {Product} = require('../model/Product')
 const {Category} = require('../model/category')
+const multer = require('multer')
+
+
+const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, 'public/uploads')
+        },
+        filename: function (req, file, cb) {
+
+        const fileName = file.originalname.split(' ').join('-')
+        //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        //   cb(null, fileName + '-' + Date.now())  // before adjusting the whole file names.
+        cb(null, `${fileName}-${Date.now()}.${extension}`)
+        }
+})
+      
+const uploadOptions = multer({ storage: storage })
 
 
 router.get('/', async (req, res) => {
@@ -42,23 +59,39 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.post('/', async (req, res) => {
+router.post('/', uploadOptions.single('image'), async (req, res) => {
 
-        const {name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured} = req.body;
+        const category = await Category.findById(req.body.category);
+        if (!category) return res.status(400).send('Invalid Category');
+    
+        const file = req.file;
+        if (!file) return res.status(400).send('No image in the request');
+    
+        const fileName = file.filename;
 
-        Category.findById(category)
-                .then((category) => {
-                        if(!category) res.status(400).json({success: false, message: "category cannot be  found"})
-                })
 
-
-        const product = new Product({
-                name,description, richDescription, image, images, price, category, countInStock, rating, numReviews, isFeatured
-        })
-
-        product.save()
-                .then(createdProduct => res.status(201).json({createdProduct}))
-                .catch(err => res.status(500).json({err, success: false}))
+        // req.get('host') this is the way to get the host from the request.
+        
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+        let product = new Product({
+            name: req.body.name,
+            description: req.body.description,
+            richDescription: req.body.richDescription,
+            image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
+            brand: req.body.brand,
+            price: req.body.price,
+            category: req.body.category,
+            countInStock: req.body.countInStock,
+            rating: req.body.rating,
+            numReviews: req.body.numReviews,
+            isFeatured: req.body.isFeatured,
+        });
+    
+        product = await product.save();
+    
+        if (!product) return res.status(500).send('The product cannot be created');
+    
+        res.send(product);
                 
 })
 

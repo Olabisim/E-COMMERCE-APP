@@ -24,7 +24,7 @@ app.options('*', cors())
 // middleware 
 app.use(express.json())
 app.use(morgan('tiny'))
-app.use(authJwt())
+// app.use(authJwt())
 // app.use(errorHandler())
 
 // routes

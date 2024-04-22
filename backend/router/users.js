@@ -25,10 +25,13 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req,res)=>{
+
+
+        console.log("hitting the right console.log route");
         let user = new User({
             name: req.body.name,
             email: req.body.email,
-            // bcrypt password after getting the password.
+            // bcrypt password after getting the password
             passwordHash: bcrypt.hashSync(req.body.password, 10),
             phone: req.body.phone,
             isAdmin: req.body.isAdmin,
@@ -49,6 +52,8 @@ router.post('/', async (req,res)=>{
     
 
 router.post('/login', async (req,res) => {
+
+        console.log("is it hitting this route!!!")
         const user = await User.findOne({email: req.body.email})
         const secret = process.env.secret;
         if(!user) {

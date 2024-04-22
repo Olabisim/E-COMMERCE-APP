@@ -10,7 +10,7 @@ function authJwt() {
         return expressjwt({
                 secret: process.env.secret,
                 algorithms: ['HS256'],
-                // isRevoked
+                isRevoked
         })
         .unless({ //unluess to exclude apis that might need to access before logging in
                 path: [
@@ -21,6 +21,8 @@ function authJwt() {
                     {url: /\/api\/v1\/orders(.*)/,methods: ['GET', 'OPTIONS', 'POST']},
                     `${api}/users/login`,
                     `${api}/users/register`,
+                    `${api}/user`,
+                    `${api}/user`,
                 ]
             })
 }

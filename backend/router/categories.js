@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
         const {name, color, icon} = req.body;
         
-        const category = new Category({
+        let category = new Category({
                 name, color, icon
         })
 
