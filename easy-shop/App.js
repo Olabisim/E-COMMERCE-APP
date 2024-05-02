@@ -4,11 +4,13 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 // Screens 
 import ProductContainer from './Screen/Products/ProductContainer';
+import Header from './Shared/Header';
 
 export default function App() {
   return (
     <View       
       style={styles.container}>
+        <Header />
       <ProductContainer />
     </View>
   );
