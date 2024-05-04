@@ -1,14 +1,23 @@
 import React, {useEffect, useState} from 'react'
-import {View as V, StyleSheet as SS, Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D } from 'react-native'
+import {View as V, StyleSheet as SS,Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D } from 'react-native'
 import {Content, Left, Body, ListItem, Thumbnail, Text} from 'native-base'
+
+var {width} = D.get("window")
+
 
 const SearchedProduct = (props) => {
     const {productsFiltered} = props
     return (
-        <Content>
+        // <V>
+
+        // </V>
+        <Content style={{width}}>
             {productsFiltered.length > 0 ? 
             (
-                productsFiltered.map*((item => (
+                productsFiltered.map((item => (
+                    // <V>
+
+                    // </V>
                     <ListItem   
                         key={item._id}
                         // key={item._id.$oid}
