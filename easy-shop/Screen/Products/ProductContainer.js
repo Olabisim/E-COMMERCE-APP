@@ -50,7 +50,7 @@ const ProductContainer = () => {
                 <Icon name="ios-search" />
                 <Input 
                     placeholder="Search"
-                    // onFocus={openList}
+                    onFocus={openList}
                     onChangeText={(text) => {searchProduct(text);openList();}}
                 />
                 {/* to handle closing of the focus */}
