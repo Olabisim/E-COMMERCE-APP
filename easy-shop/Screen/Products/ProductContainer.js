@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {View as V, StyleSheet, Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D } from 'react-native'
+// import {Icon} from 'native-base'
+import {Container, Header, Icon, Item, Input, Text} from 'native-base'
 import ProductList from './ProductList';
 
 
@@ -22,32 +24,22 @@ const ProductContainer = () => {
 
 
     return (
+
+        <Container> 
+        
+        <Header searchBar rounded>
+            <Item>
+                <Icon name="ios-search" />
+                <Input 
+                    placeholder="Search"
+                    // onFocus={}
+                    // onChangeText={(text) => }
+                />
+            </Item>
+        </Header>
+            
         <V style={{marginTop: 30, flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'center'}}> 
             <T>Product Container</T>
-
-            {/* <V style={{marginTop: 100, flex: 1, flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0',padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T>
-                </V>
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0', padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T>
-                </V>
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0', padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T>
-                </V>
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0',padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T> 
-                </V>
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0', padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T>
-                </V>
-
-                <V style={{width: 100, height: 100, backgroundColor: '#fffff0', padding: 5,  margin: 5}}>
-                    <T>afsdfsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</T>
-                </V>
-            </V> */}
-
-
             <V style={{marginTop: 20, flex: 1, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
                 <FL 
                     numColumns={2}
@@ -58,6 +50,9 @@ const ProductContainer = () => {
                 />
             </V>
         </V>
+        
+        </Container>
+
     )
 }
 
