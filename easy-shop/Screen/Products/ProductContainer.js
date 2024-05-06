@@ -4,6 +4,7 @@ import {View as V, StyleSheet, Text as T, ActivityIndicator, FlatList as FL,  Di
 import {Container, Header, Icon, Item, Input, Text} from 'native-base'
 import ProductList from './ProductList';
 import SearchedProduct from './SearchedProducts';
+import Banner from '../../Shared/Banner';
 
 
 var {width}  = D.get("window")
@@ -72,8 +73,10 @@ const ProductContainer = () => {
         )
         : 
         (  
-        <V style={{marginTop: 30, flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'center'}}> 
-            <T>Product Container</T>
+        <V style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'center'}}> 
+            <V>
+                <Banner />
+            </V>
             <V style={{marginTop: 20, flex: 1, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
                 <FL 
                     numColumns={2}
