@@ -5,6 +5,7 @@ import {Container, Header, Icon, Item, Input, Text} from 'native-base'
 import ProductList from './ProductList';
 import SearchedProduct from './SearchedProducts';
 import Banner from '../../Shared/Banner';
+import CategoryFilter from './CategoryFilter';
 
 
 var {width}  = D.get("window")
@@ -87,10 +88,14 @@ const ProductContainer = () => {
         : 
         (  
         <V style={{ flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'center'}}> 
-            <V>
+            <V style={{flex:3}}>
                 <Banner />
             </V>
-            <V style={{marginTop: 20, flex: 1, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+            
+            <CategoryFilter />
+            {/* <V>
+            </V> */}
+            <V style={{marginTop: 20, flex: 5, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
                 <FL 
                     numColumns={2}
                     // horizontal
