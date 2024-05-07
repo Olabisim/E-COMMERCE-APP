@@ -11,14 +11,15 @@ import CategoryFilter from './CategoryFilter';
 var {width}  = D.get("window")
 
 const data = require('../../assets/data/products.json')
-const categories = require('../../assets/data/categories.json')
+const productsCategories = require('../../assets/data/categories.json')
 
 const ProductContainer = () => {
 
     const [ products, setProducts] = useState([]);
     const [ productsFiltered, setProductsFiltered] = useState([]);
     const [ focus, setFocus] = useState();
-    const [ categories, setCategories] = useState([]);
+    const [ categories, setCategories] = useState([]); 
+    const [ productsCtg, setproductsCtg] = useState([]); 
     const [ active, setActive] = useState();
     const [ initialState, setinitialState] = useState([]);
 
@@ -27,7 +28,7 @@ const ProductContainer = () => {
         setProducts(data);
         setProductsFiltered(data);
         setFocus(false);
-        setCategories(categories)
+        setCategories(productsCategories)
         setActive(-1)
         setinitialState(data)
 
@@ -55,6 +56,18 @@ const ProductContainer = () => {
         setFocus(false);
     }
 
+    // Categories
+
+    const changeCtg = (ctg) => {
+        // set all categories to active if all is active. 
+        {
+            ctg === 'all'
+            ?
+            [setproductsCtg(initialState), setActive(true)]
+            :
+            [setproductsCtg(products.filter((i) => i.category._id === ctg), setActive(true))]
+        }
+    }
 
     return (
 
@@ -92,7 +105,13 @@ const ProductContainer = () => {
                 <Banner />
             </V>
             
-            <CategoryFilter />
+            <CategoryFilter 
+                categories={categories}
+                CategoryFilter={changeCtg}
+                productsCtg={productsCtg}
+                active={active}
+                setActive={setActive}
+            />
             {/* <V>
             </V> */}
             <V style={{marginTop: 20, flex: 5, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
