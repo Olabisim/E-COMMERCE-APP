@@ -11,7 +11,11 @@ const ProductList = (props) => {
 
     return (
         // <TO style={{width: '50%', flex: 1}}>
-        <TO style={{width: '50%'}}>
+        <TO 
+            // product list will not understand the meaning of navigation unless being passed from the top component - productContainer
+            onPress={() => props.navigation.navigate("Product Detail", {item: item})}
+            style={{width: '50%'}}
+        >
             {/*  */}
             <V style={{width: width / 2.5, flex: 1, justifyContent: 'center', alignContent: 'center'}}>
                 <ProductCard {...item} />

@@ -19,6 +19,7 @@ const SearchedProduct = (props) => {
 
                     // </V>
                     <ListItem   
+                        onPress={() => {props.navigation.navigate("Product Detail", {item: item})}}
                         key={item._id}
                         // key={item._id.$oid}
                         avatar
