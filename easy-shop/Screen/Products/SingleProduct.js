@@ -17,7 +17,23 @@ const SingleProduct = (props) => {
                         style={styles.image}
                     />
                 </V>
+                <V style={styles.contentContainer}>
+                    <H1 style={styles.contentHeader}>{item.name}</H1>
+                    <T style={styles.contentText}>{item.brand}</T>
+                </V>
+                {/* TODO: Description, Rich Description and Availability */}
             </SV>
+
+            <V style={styles.bottomContainer}>
+                <Left>
+                    <T>$ {item.price}</T>
+                </Left>
+                <Right>
+                    <B title="Add" />
+                </Right>
+            </V>
+
+
         </Container>
     )
 }
@@ -35,6 +51,32 @@ const styles = SS.create({
     image: {
         width: "100%",
         height: 250
+    },
+    contentContainer: {
+        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    contentHeader: {
+        fontWeight: 'bold',
+        marginBottom: 20
+    },
+    contentText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 20
+    },
+    bottomContainer: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        backgroundColor: 'white'
+    },
+    price: {
+        fontSize: 25,
+        margin: 20, 
+        color: 'red'
     }
 })
 
