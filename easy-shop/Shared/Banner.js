@@ -21,8 +21,8 @@ const Banner = () => {
         }
     },[])
 
-    console.log(bannerData)
-    console.log("bannerData")
+    // console.log(bannerData)
+    // console.log("bannerData")
 
     return (
         <V style={styles.container}>

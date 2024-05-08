@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View as V, StyleSheet, Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D } from 'react-native'
+import {View as V, StyleSheet as SS, Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D } from 'react-native'
 // import {Icon} from 'native-base'
 import {Container, Header, Icon, Item, Input, Text} from 'native-base'
 import ProductList from './ProductList';
@@ -8,7 +8,7 @@ import Banner from '../../Shared/Banner';
 import CategoryFilter from './CategoryFilter';
 
 
-var {width}  = D.get("window")
+var {width, height }  = D.get("window")
 
 const data = require('../../assets/data/products.json')
 const productsCategories = require('../../assets/data/categories.json')
@@ -29,6 +29,7 @@ const ProductContainer = () => {
         setProductsFiltered(data);
         setFocus(false);
         setCategories(productsCategories)
+        setproductsCtg(data)
         setActive(-1)
         setinitialState(data)
 
@@ -68,6 +69,9 @@ const ProductContainer = () => {
             [setproductsCtg(products.filter((i) => i.category._id === ctg), setActive(true))]
         }
     }
+
+    // console.log('productsCtg')
+    // console.log(productsCtg)
 
     return (
 
@@ -114,15 +118,37 @@ const ProductContainer = () => {
             />
             {/* <V>
             </V> */}
-            <V style={{marginTop: 20, flex: 5, width, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                <FL 
-                    numColumns={2}
-                    // horizontal
-                    data={products}
-                    renderItem={({item}) => <ProductList key={item.id} item={item} />}
-                    keyExtractor={item => item.name}
-                />
-            </V>
+            {
+                productsCtg.length > 0 
+                ?
+                (
+                    <V style={styles.thirdLayoutView}>
+                        
+                        {/* {productsCtg.map((item) => {
+                            return (
+                                <ProductList 
+                                    key={item._id}
+                                    item={item}
+                                />
+                            )
+                        })} */}
+                        
+                        <FL 
+                            numColumns={2}
+                            // horizontal
+                            data={products}
+                            renderItem={({item}) => <ProductList key={item.id} item={item} />}
+                            keyExtractor={item => item.name}
+                        />
+                    </V>
+                )
+                : 
+                (
+                    <V style={styles.thirdLayoutView}>
+                        <T>No products found</T>
+                    </V>   
+                )
+            }
         </V>
         )
         }
@@ -131,5 +157,19 @@ const ProductContainer = () => {
 
     )
 }
+
+const styles = SS.create({
+    thirdLayoutView: {
+        marginTop: 20, 
+        flex: 5, 
+        width, 
+        height,
+        flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        alignContent: 'center', 
+        alignItems: 'center', 
+        justifyContent: 'center'
+    }
+})
 
 export default ProductContainer;
