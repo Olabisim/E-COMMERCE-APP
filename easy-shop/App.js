@@ -1,5 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Main from './Navigators/Main';
+
+// Navigators 
 
 // Screens 
 import ProductContainer from './Screen/Products/ProductContainer';
@@ -9,11 +13,15 @@ LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
-    <View       
-      style={styles.container}>
-        <Header />
-      <ProductContainer />
-    </View>
+    <NavigationContainer>
+      {/* <View       
+        style={styles.container}> */}
+          <Header />
+        <Main />
+        {/* <ProductContainer /> */}
+      {/* </View> */}
+
+    </NavigationContainer>
   );
 }
 
