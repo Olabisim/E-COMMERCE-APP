@@ -1,9 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, LogBox } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import Main from './Navigators/Main';
 
+// Redux
+import { Provider } from 'react-redux';
+import store from './Redux/store';
+
 // Navigators 
+import { NavigationContainer } from '@react-navigation/native';
 
 // Screens 
 import ProductContainer from './Screen/Products/ProductContainer';
@@ -13,15 +17,18 @@ LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
-    <NavigationContainer>
-      {/* <View       
-        style={styles.container}> */}
-          <Header />
-        <Main />
-        {/* <ProductContainer /> */}
-      {/* </View> */}
+    <Provider store={store}>
 
-    </NavigationContainer>
+      <NavigationContainer>
+        {/* <View       
+          style={styles.container}> */}
+            <Header />
+            <Main />
+          {/* <ProductContainer /> */}
+        {/* </View> */}
+
+      </NavigationContainer>
+    </Provider>
   );
 }
 
