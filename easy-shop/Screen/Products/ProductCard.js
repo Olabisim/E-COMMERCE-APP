@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/features/carts/cartSlice';
 
 var {width} = D.get("window");
 
 const ProductCard = (props) => {
 
     const {name, price, image, countInStock} = props;
+
+    const dispatch = useDispatch()
 
     return (
         <V style={styles.container}>
@@ -28,7 +32,11 @@ const ProductCard = (props) => {
                     ? 
                     (
                     <V style={{marginBottom: 0}}>
-                        <B title={'Add'} color={'green'} />
+                        <B 
+                            onPress={() => dispatch(addToCart(props))}
+                            title={'Add'} 
+                            color={'green'} 
+                        />
                     </V>
                     )
                     :

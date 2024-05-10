@@ -27,7 +27,7 @@ const Main = () => {
                 options={{
                     tabBarIcon: ({color}) => (
                         <Icon
-                        
+
                             name="home"
                             style={{position: 'relative'}}
                             color={color}
