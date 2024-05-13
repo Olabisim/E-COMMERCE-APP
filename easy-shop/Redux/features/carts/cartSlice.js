@@ -13,7 +13,7 @@ const cartSlice = createSlice({
             return [...state, action.payload]
         },
         removeFromCart(state, action) {
-            return state.filter(cartItem => cartItem !== action.payload)
+            return state = state.filter(cartItem => cartItem._id.$oid != action.payload._id.$oid)
         },
         clearCart(state, _ ) {
             return state = []

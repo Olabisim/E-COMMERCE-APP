@@ -1,9 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
-import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body}  from 'native-base'
-import { cartSelector, clearCart } from '../../Redux/features/carts/cartSlice';
-
+import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body, Icon}  from 'native-base'
+import { cartSelector, clearCart, removeFromCart } from '../../Redux/features/carts/cartSlice';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import CartItem from './CartItem';
 
 var {height, width} = D.get("window")
 
@@ -30,26 +31,29 @@ function Cart(props) {
                             
                             {cartItems.map(x => {
                                 return (
-                                    <ListItem
-                                        style={styles.listItem}
-                                        key={Math.random()}
-                                        avatar
-                                    >
-                                        <Left>
-                                            <Thumbnail source={{uri: x.image ? x.image :'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png' }} />
-                                        </Left>
-                                        <Body style={styles.body}> 
-                                            <Left>
-                                                <T>{x.name}</T>
-                                            </Left>
-                                            <Right>
-                                                <T>{x.price}</T>
-                                            </Right>
-                                        </Body>
-                                        
-                                    </ListItem>
+                                    <CartItem item={x}  />
                                 )
                             })}
+                            {/* <SwipeListView 
+                                data={cartItems}
+                                renderItem={(data) => (
+                                    <CartItem item={data} />
+                                )}
+                                renderHiddenItem={(data) => {
+                                    <V style={styles.hiddenContainer}>
+                                        <TO style={styles.hiddenButton}>
+                                            <Icon name="trash" color={"white"} size={30} />
+                                        </TO>
+                                    </V>
+                                }}
+                                // disableRightSwipe={true}
+                                previewOpenDelay={3000}
+                                friction={1000}
+                                tension={40}
+                                leftOpenValue={75}
+                                stopLeftSwipe={75}
+                                rightOpenValue={-75}
+                            /> */}
                             <V style={styles.bottomContainer}>
                                 <Left>
                                     <T
@@ -62,7 +66,6 @@ function Cart(props) {
                                 <Right>
                                     <B title="Checkout" onPress={() => props.navigation.navigate('Checkout')} />
                                 </Right>
-
                             </V>
                     </Container>
                 )
@@ -90,16 +93,6 @@ const styles = SS.create({
       height: height,
       alignItems: "center",
       justifyContent: "center",
-    },
-    listItem: {
-        alignItems: 'center',
-        backgroundColor: 'white',
-        justifyContent: 'center'  
-    },
-    body: {
-        margin: 10,
-        alignItems: 'center',
-        flexDirection: 'row'
     },
     bottomContainer: {
         flexDirection: 'row',
