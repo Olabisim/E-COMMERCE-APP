@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
 import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body}  from 'native-base'
-import { cartSelector } from '../../Redux/features/carts/cartSlice';
+import { cartSelector, clearCart } from '../../Redux/features/carts/cartSlice';
 
 
 var {height, width} = D.get("window")
@@ -10,6 +10,8 @@ var {height, width} = D.get("window")
 function Cart(props) {
 
     const cartItems = useSelector(cartSelector)
+
+    const dispatch = useDispatch()
 
     let total = 0;
 
@@ -55,7 +57,7 @@ function Cart(props) {
                                     >$ {total}</T>
                                 </Left>
                                 <Right>
-                                    <B title="Clear" />
+                                    <B title="Clear" onPress={() => dispatch(clearCart())} />
                                 </Right>
                                 <Right>
                                     <B title="Checkout" onPress={() => props.navigation.navigate('Checkout')} />
