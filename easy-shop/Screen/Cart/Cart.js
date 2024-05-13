@@ -2,16 +2,20 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
 import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body}  from 'native-base'
+import { cartSelector } from '../../Redux/features/carts/cartSlice';
 
 
 var {height, width} = D.get("window")
 
-function Cart() {
+function Cart(props) {
 
-    const cartItems = useSelector(state => state.cart)
+    const cartItems = useSelector(cartSelector)
 
-    console.log("cartItems")
-    console.log(cartItems)
+    let total = 0;
+
+    cartItems.forEach(cart => {
+        return (total += cart.price)
+    })
 
     return (
         <>
@@ -44,6 +48,20 @@ function Cart() {
                                     </ListItem>
                                 )
                             })}
+                            <V style={styles.bottomContainer}>
+                                <Left>
+                                    <T
+                                        style={styles.price}
+                                    >$ {total}</T>
+                                </Left>
+                                <Right>
+                                    <B title="Clear" />
+                                </Right>
+                                <Right>
+                                    <B title="Checkout" onPress={() => props.navigation.navigate('Checkout')} />
+                                </Right>
+
+                            </V>
                     </Container>
                 )
                 :
