@@ -21,7 +21,7 @@ const styles = SS.create({
         marginBottom: 400,
         width,
         justifyContent: 'center',
-        alignContent: 'center'
+        alignItems: 'center'
 
     },
     title: {
