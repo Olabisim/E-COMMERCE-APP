@@ -64,7 +64,7 @@ const Confirm = (props) => {
                             return (
                                 <ListItem style={styles.listItem} key={x.name} avatar>
                                     <Left>
-                                        <Thumbnail source={{ uri: x.image }} />
+                                        <Thumbnail source={{ uri: x.image ? x.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'}} />
                                     </Left>
                                     <Body style={styles.body}>
                                         <Left>
