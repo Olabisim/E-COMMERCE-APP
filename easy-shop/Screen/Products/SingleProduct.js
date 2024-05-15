@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
 
 import {Left, Right, Container, H1}  from 'native-base'
@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
 
 const SingleProduct = (props) => {
+    
     const [ item, setItem ] = useState(props.route.params.item);
     const [ availability, setAvailability] = useState('');
 
@@ -39,8 +40,6 @@ const SingleProduct = (props) => {
                     />  
                 </Right>
             </V>
-
-
         </Container>
     )
 }

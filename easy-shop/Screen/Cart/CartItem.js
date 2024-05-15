@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
-import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
+import {View as V, StyleSheet as SS, Dimensions as D, Text as T, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
 import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body}  from 'native-base'
 import { removeFromCart } from '../../Redux/features/carts/cartSlice';
-// import {SwipeListView} from 'react-native-swipe-list-view';
 
 
 const CartItem = ({item}) => {
@@ -13,7 +12,6 @@ const CartItem = ({item}) => {
     const dispatch = useDispatch();
 
     return (
-        
         <ListItem
             style={styles.listItem}
             key={Math.random()}
@@ -31,13 +29,12 @@ const CartItem = ({item}) => {
                     <T>{item.price}</T>
                 </Right>
             </Body>
-            
         </ListItem>
     )
 }
 
 const styles = SS.create({
-    
+
     listItem: {
         alignItems: 'center',
         backgroundColor: 'white',

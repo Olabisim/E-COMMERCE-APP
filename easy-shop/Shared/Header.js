@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V } from 'react-native';
+import { StyleSheet as SS, Image as I, View as V } from 'react-native';
 
 const Header = () => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
+import {View as V, StyleSheet as SS, Dimensions as D, Text as T, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
 import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body, Icon}  from 'native-base'
 import { cartSelector, clearCart, removeFromCart } from '../../Redux/features/carts/cartSlice';
 import {SwipeListView} from 'react-native-swipe-list-view';
@@ -72,7 +72,7 @@ function Cart(props) {
                 :
                 (
                     <Container style={styles.emptyContainer}>
-                        <T>Lools like your cart is empty</T>
+                        <T>Looks like your cart is empty</T>
                         <T>Add products to your cart to get you started</T>
                     </Container>
                 )

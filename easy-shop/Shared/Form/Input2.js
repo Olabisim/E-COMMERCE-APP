@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-// import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
+import React from 'react'
 import { TextInput as TI, StyleSheet as SS } from 'react-native'
 
 const Input = (props) => {
@@ -14,7 +13,7 @@ const Input = (props) => {
             onChangeText={props.onChangeText}
             onFocus={props.onFocus}
             secureTextEntry={props.secureTextEntry}
-            // default keyboard type is a string no need to set keyboardtype for string
+            // default keyboard type is a string no need to set keyboardtype for string --- if any is empty naturally it will default to false
             keyboardType={props.keyboardType}
         >
         </TI>

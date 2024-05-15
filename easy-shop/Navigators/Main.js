@@ -2,11 +2,11 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View as V } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import CartIcon from '../Shared/CartIcon';
 
-// stakcs
+// stacks
 import HomeNavigator from './HomeNavigator';
 import CartNavigator from './CartNavigator';
-import CartIcon from '../Shared/CartIcon';
 
 
 const Tab = createBottomTabNavigator();
@@ -14,7 +14,6 @@ const Tab = createBottomTabNavigator();
 const Main = () => {
     return (
         <Tab.Navigator
-        
             initialRouteName='Home'
             tabBarOptions={{
                 keyboardHidesTabBar: true, 
@@ -28,7 +27,6 @@ const Main = () => {
                 options={{
                     tabBarIcon: ({color}) => (
                         <Icon
-
                             name="home"
                             style={{position: 'relative'}}
                             color={color}

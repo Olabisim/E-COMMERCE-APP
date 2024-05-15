@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {View as V, StyleSheet as SS, Dimensions as D, Text as T, ActivityIndicator, FlatList as FL, Image as I, Button as B } from 'react-native';
+import React from 'react'
+import {View as V, StyleSheet as SS, Dimensions as D, Text as T, FlatList as FL, Image as I, Button as B } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
 
@@ -20,7 +20,6 @@ const ProductCard = (props) => {
             />
 
             {/* <V style={styles.container} /> */}
-
 
             <V style={styles.innerContainer}>
                 <T style={styles.title}>
@@ -43,7 +42,6 @@ const ProductCard = (props) => {
                     <T style={{marginTop: 0 }}>Currently Unavailable</T> 
                 }
             </V>
-            
         </V>
     )
 }

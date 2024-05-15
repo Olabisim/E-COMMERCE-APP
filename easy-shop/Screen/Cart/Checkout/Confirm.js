@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
 import { Text, Left, Right, ListItem, Thumbnail, Body } from "native-base";
 import { clearCart } from '../../../Redux/features/carts/cartSlice';
@@ -12,15 +12,10 @@ const Confirm = (props) => {
 
     const finalOrder = props.route.params;
 
-
-    // console.log('finalOrder.order.order.orderItems')
-    // console.log(finalOrder?.order?.order.orderItems)
-
     const  confirmOrder = () => {
         setTimeout(() => {
             dispatch(clearCart());
             props.navigation.navigate("CartHome")
-            console.log('finished the set time out')
         }, 500)
     }
 
@@ -86,7 +81,6 @@ const Confirm = (props) => {
                     </V>
                 )   
                 }
-
 
                 <V style={{ alignItems: "center", margin: 20 }}>
                     <B title={"Place order"} onPress={confirmOrder} />

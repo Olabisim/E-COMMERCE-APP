@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import {View as V, StyleSheet as SS, Text as T, ActivityIndicator, FlatList as FL,  Dimensions as D, ScrollView as SV, TouchableOpacity as TO} from 'react-native'
+import {View as V, StyleSheet as SS, Text as T, FlatList as FL,  Dimensions as D, ScrollView as SV, TouchableOpacity as TO} from 'react-native'
 import {ListItem, Badge, Text} from 'native-base'
 
 
@@ -33,7 +33,7 @@ const CategoryFilter = (props) => {
                     <TO 
                         key={item._id}
                         onPress={() => {
-                            // setting it to all if it all categories is clicked on.
+                            // setting it to each if it each category is clicked on.
                             props.CategoryFilter(item._id), props.setActive(props.categories.indexOf(item))
                         }}
                     >

@@ -1,35 +1,31 @@
 
-import React, {useState, useEffect} from 'react';
-import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV } from 'react-native';
+import React from 'react';
+import { StyleSheet as SS,  View as V, Dimensions as D, Text as T, ScrollView as SV } from 'react-native';
 import { useSelector } from 'react-redux';
 import { cartSelector } from '../Redux/features/carts/cartSlice';
 import { Badge } from 'native-base';
-
-
-
 
 
 const CartIcon = (props) => {
 
     const cartItems = useSelector(cartSelector)
 
-
     return(
         <>
             {
-            cartItems.length
-            ?
-            (
-                <Badge style={styles.badge}>
-                    <T style={styles.text}>{cartItems.length}</T>
-                </Badge>
-            )
-            :
-            (
-                <>
+                cartItems.length
+                ?
+                (
+                    <Badge style={styles.badge}>
+                        <T style={styles.text}>{cartItems.length}</T>
+                    </Badge>
+                )
+                :
+                (
+                    <>
 
-                </>
-            )
+                    </>
+                )
             }
         </>
     )

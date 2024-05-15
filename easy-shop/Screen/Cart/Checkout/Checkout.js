@@ -9,12 +9,10 @@ import Input from '../../../Shared/Form/Input2';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
 const countries = require("../../../assets/countries.json");
 
 const Checkout = (props) => {
 
-    
     const [ orderItems, setOrderItems ] = useState();
     const [ address, setAddress ] = useState();
     const [ address2, setAddress2 ] = useState();
@@ -35,7 +33,6 @@ const Checkout = (props) => {
     }, [])
 
     const checkOut = () => {
-        // console.log("orders", orderItems)
         let order = {
             city,
             country,
@@ -124,14 +121,9 @@ const Checkout = (props) => {
 
             </FormContainer>
 
-
-
-
         </KeyboardAwareScrollView>
     )
 }
 
-const styles = SS.create({
-})
 
 export default Checkout;

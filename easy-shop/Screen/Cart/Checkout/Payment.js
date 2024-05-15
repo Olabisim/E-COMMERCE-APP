@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
 import { Container, Header, Content, ListItem, Text, Radio, Right, Left, Picker, Icon, Body, Title} from 'native-base';
 
@@ -18,7 +18,7 @@ const paymentCards = [
 
 const Payment = (props) => {
 
-    // to catch the order details passed in checkout (i.e. shipping page)  ----- props.navigation.navigate("Payment", {order: order }) passed to pass the order
+    // to catch the order details passed in checkout (i.e. shipping page)  ----- props.navigation.navigate("Payment", {order: order }) passed to pass the order, it is now receved as a params
 
     const order = props.route.params
     
@@ -74,9 +74,7 @@ const Payment = (props) => {
                        />
                 </V>
 
-
             </Content>
-
 
         </Container>
     )

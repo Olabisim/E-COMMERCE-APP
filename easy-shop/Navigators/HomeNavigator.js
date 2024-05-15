@@ -1,9 +1,10 @@
 
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-
 import ProductContainer from '../Screen/Products/ProductContainer'
 import SingleProduct from '../Screen/Products/SingleProduct'
+
+// stacks
+import { createStackNavigator } from '@react-navigation/stack'
 
 
 const Stack = createStackNavigator()

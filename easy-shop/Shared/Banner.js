@@ -21,9 +21,6 @@ const Banner = () => {
         }
     },[])
 
-    // console.log(bannerData)
-    // console.log("bannerData")
-
     return (
         <V style={styles.container}>
             {/* <V style={styles.swiper}> */}
@@ -80,31 +77,31 @@ const styles = SS.create({
     },
 })
 
-const styles2 = SS.create({  
-    wrapper: {},
-    slide1: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#9DD6EB'
-    },
-    slide2: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#97CAE5'
-    },
-    slide3: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#92BBD9'
-    },
-    text: {
-      color: '#fff',
-      fontSize: 30,
-      fontWeight: 'bold'
-    }
-})
+// const styles2 = SS.create({  
+//     wrapper: {},
+//     slide1: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#9DD6EB'
+//     },
+//     slide2: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#97CAE5'
+//     },
+//     slide3: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#92BBD9'
+//     },
+//     text: {
+//       color: '#fff',
+//       fontSize: 30,
+//       fontWeight: 'bold'
+//     }
+// })
 
 export default Banner;
