@@ -5,11 +5,11 @@ const express = require('express'),
         morgan = require('morgan'),
         mongoose = require('mongoose'),
         productRoutes = require('./router/product.js'),
-        orderRoutes = require('./router/orders'),
-        categoryRoutes = require('./router/categories'),
-        userRoutes = require('./router/users'),
+        orderRoutes = require('./router/orders.js'),
+        categoryRoutes = require('./router/categories.js'),
+        userRoutes = require('./router/users.js'),
         cors = require('cors'),
-        authJwt =  require('./helpers/jwt');
+        authJwt =  require('./helpers/jwt.js');
         // errorHandler = require('./helpers/errorHandler')
 
 

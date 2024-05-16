@@ -5,6 +5,9 @@ import ProductList from './ProductList';
 import SearchedProduct from './SearchedProducts';
 import Banner from '../../Shared/Banner';
 import CategoryFilter from './CategoryFilter';
+// connection
+import axios from 'axios'
+import baseURL from '../../assets/common/baseUrl';
 
 
 var {width, height }  = D.get("window")
@@ -24,13 +27,27 @@ const ProductContainer = (props) => {
 
 
     useEffect(() => {
-        setProducts(data);
-        setProductsFiltered(data);
+
         setFocus(false);
         setCategories(productsCategories)
-        setproductsCtg(data)
         setActive(-1)
-        setinitialState(data)
+        
+
+        console.log('reached the axios stage');
+        console.log(`${baseURL}products`);
+
+        axios
+            .get(`${baseURL}products`)
+            .then(res => {
+                setProducts(res.data);
+                setProductsFiltered(res.data);
+                setproductsCtg(res.data);
+                setinitialState(res.data);
+                console.log('axios res')
+                console.log(res)
+            })
+            .catch(err => {console.log("this is the erro coming in axios", err); console.log(err[0])})
+
 
         return () => {
             setProducts([])
