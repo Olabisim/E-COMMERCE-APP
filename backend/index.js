@@ -28,6 +28,11 @@ app.use(morgan('tiny'))
 // app.use(errorHandler())
 app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 
+
+// default testing api
+
+app.get('/', (req, res) => res.send('this should show up'))
+
 // routes
 app.use(api + '/products', productRoutes)
 app.use(api + '/orders', orderRoutes)
