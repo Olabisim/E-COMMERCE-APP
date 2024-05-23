@@ -8,8 +8,8 @@ const express = require('express'),
         orderRoutes = require('./router/orders.js'),
         categoryRoutes = require('./router/categories.js'),
         userRoutes = require('./router/users.js'),
-        cors = require('cors'),
-        authJwt =  require('./helpers/jwt.js');
+        cors = require('cors');
+        // authJwt =  require('./helpers/jwt.js');
         // errorHandler = require('./helpers/errorHandler')
 
 

@@ -1,6 +1,7 @@
 import {Platform } from 'react-native';
 
-let baseURL = 'http://102.88.71.186/api/v1/';
+// let baseURL = 'http://102.88.71.186/api/v1/';
+let baseURL = 'https://e-commerce-app-lime-five.vercel.app/api/v1/';
 
 // {
 //     Platform.OS == 'android'
