@@ -7,6 +7,7 @@ import CartIcon from '../Shared/CartIcon';
 // stacks
 import HomeNavigator from './HomeNavigator';
 import CartNavigator from './CartNavigator';
+import UserNavigator from './UserNavigator';
 
 
 const Tab = createBottomTabNavigator();
@@ -15,7 +16,7 @@ const Main = () => {
     return (
         <Tab.Navigator
             initialRouteName='Home'
-            tabBarOptions={{
+            screenOptions={{
                 keyboardHidesTabBar: true, 
                 showLabel: false, 
                 activeTintColor: '#e91e63'
@@ -68,7 +69,7 @@ const Main = () => {
             />
             <Tab.Screen 
                 name='User'
-                component={HomeNavigator}
+                component={UserNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
                         <Icon
