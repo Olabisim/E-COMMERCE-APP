@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {View as V, StyleSheet as SS, Text as T, FlatList as FL,  Dimensions as D, ActivityIndicator as AI, Button as B } from 'react-native'
 import FormContainer from '../../Shared/Form/FormContainer'
 import Input from '../../Shared/Form/Input2'
+import Error from '../../Shared/Error'
 
 
 const Login = (props) => {
@@ -44,6 +45,7 @@ const Login = (props) => {
             />
             
             <V style={styles.buttonGroup}>
+                {error ? <Error message={error} /> : null }
                 <B title="Login" onPress={() => handleSubmit()} />
             </V>
 
