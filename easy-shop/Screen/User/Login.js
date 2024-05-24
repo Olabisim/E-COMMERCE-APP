@@ -8,6 +8,20 @@ const Login = (props) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    const handleSubmit = () => {
+        const user = {
+            email, password
+        }
+
+        if (email === "" || password === "") {
+            setError("Please fill in your credentials")
+        }
+        else {
+            console.log("success")
+        }
+    }
 
     return (
         <FormContainer>
@@ -30,9 +44,9 @@ const Login = (props) => {
             />
             
             <V style={styles.buttonGroup}>
-                <B title="Login" />
+                <B title="Login" onPress={() => handleSubmit()} />
             </V>
-            
+
             <V style={[{marginTop: 40}, styles.buttonGroup]}>
                 <T style={styles.middleText}>Don't have an account yet?</T>
                 <B title="Register" onPress={() => props.navigation.navigate("Register")} />
