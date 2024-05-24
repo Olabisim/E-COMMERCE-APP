@@ -1,6 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import { LogBox } from 'react-native';
 import Main from './Navigators/Main';
+import Toast from "react-native-toast-message";
 
 // Redux
 import { Provider } from 'react-redux';
@@ -24,6 +25,7 @@ export default function App() {
           style={styles.container}> */}
             <Header />
             <Main />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
           {/* <ProductContainer /> */}
         {/* </View> */}
 
