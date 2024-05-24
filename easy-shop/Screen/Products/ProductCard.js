@@ -2,6 +2,7 @@ import React from 'react'
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, FlatList as FL, Image as I, Button as B } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
+import Toast from "react-native-toast-message";
 
 var {width} = D.get("window");
 
@@ -32,7 +33,15 @@ const ProductCard = (props) => {
                     (
                     <V style={{marginBottom: 0}}>
                         <B 
-                            onPress={() => dispatch(addToCart(props))}
+                            onPress={() => {
+                                dispatch(addToCart(props)), 
+                                Toast.show({
+                                  topOffset: 60,
+                                  type: "success",
+                                  text1: `${name} - added to Cart`,
+                                  text2: "Go to your cart to complete order",
+                                })
+                            }}
                             title={'Add'} 
                             color={'green'} 
                         />

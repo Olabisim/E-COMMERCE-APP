@@ -4,6 +4,7 @@ import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimension
 import {Left, Right, Container, H1}  from 'native-base'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
+import Toast from "react-native-toast-message";
 
 const SingleProduct = (props) => {
     
@@ -35,7 +36,15 @@ const SingleProduct = (props) => {
                 </Left>
                 <Right>
                     <B 
-                        onPress={() => dispatch(addToCart(item))}
+                        onPress={() => {
+                            dispatch(addToCart(item)),
+                            Toast.show({
+                                topOffset: 60,
+                                type: "success",
+                                text1: `${item.name} - added to Cart`,
+                                text2: "Go to your cart to complete order",
+                              })
+                        }}
                         title="Add" 
                     />  
                 </Right>
