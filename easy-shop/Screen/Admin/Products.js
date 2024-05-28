@@ -6,6 +6,7 @@ import { useFocusEffect } from "@react-navigation/native"
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import baseURL from "../../assets/common/baseUrl"
+import ListItem from "./ListItem"
 
 
 var { height, width } = D.get("window")
@@ -65,7 +66,11 @@ const Products = (props) => {
                     data={productFilter}
                     // ListHeaderComponent={ListHeader}
                     renderItem={({ item, index }) => (
-                        <T>{item.name}</T>
+                        <ListItem
+                            {...item}
+                            index={index}
+                            navigation={props.navigation}
+                        />
                     )}
                     keyExtractor={(item) => item.id}
                 />
