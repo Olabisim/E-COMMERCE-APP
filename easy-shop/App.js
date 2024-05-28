@@ -7,30 +7,38 @@ import Toast from "react-native-toast-message";
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 
+// Context API
+
 // Navigators 
 import { NavigationContainer } from '@react-navigation/native';
 
 // Screens 
 // import ProductContainer from './Screen/Products/ProductContainer';
 import Header from './Shared/Header';
+import Auth from './Context/store/Auth';
+
 
 LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
-    <Provider store={store}>
+    <Auth>
 
-      <NavigationContainer>
-        {/* <View       
-          style={styles.container}> */}
-            <Header />
-            <Main />
-            <Toast ref={(ref) => Toast.setRef(ref)} />
-          {/* <ProductContainer /> */}
-        {/* </View> */}
+      <Provider store={store}>
 
-      </NavigationContainer>
-    </Provider>
+        <NavigationContainer>
+          {/* <View       
+        style={styles.container}> */}
+              <Header />
+              <Main />
+              <Toast ref={(ref) => Toast.setRef(ref)} />
+            {/* <ProductContainer /> */}
+          {/* </View> */}
+
+        </NavigationContainer>
+      </Provider>
+      
+    </Auth>
   );
 }
 
