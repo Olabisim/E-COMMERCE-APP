@@ -68,6 +68,16 @@ const Products = (props) => {
         )
     )
 
+    
+    const searchProduct = (text) => {
+        if (text == "") {
+            setProductFilter(productList)
+        }
+        setProductFilter(
+            productList.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
+        )
+    }
+
     return (
         <V>
             <V>
