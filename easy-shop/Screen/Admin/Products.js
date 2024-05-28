@@ -11,6 +11,30 @@ import ListItem from "./ListItem"
 
 var { height, width } = D.get("window")
 
+
+const ListHeader = () => {
+    return(
+        <V
+            elevation={1}
+            style={styles.listHeader}
+        >
+            <V style={styles.headerItem}></V>
+            <V style={styles.headerItem}>
+                <T style={{ fontWeight: '600'}}>Brand</T>
+            </V>
+            <V style={styles.headerItem}>
+                <T style={{ fontWeight: '600'}}>Name</T>
+            </V>
+            <V style={styles.headerItem}>
+                <T style={{ fontWeight: '600'}}>Category</T>
+            </V>
+            <V style={styles.headerItem}>
+                <T style={{ fontWeight: '600'}}>Price</T>
+            </V>
+        </V>
+    )
+}
+
 const Products = (props) => {
     
     const [productList, setProductList] = useState();
@@ -64,7 +88,7 @@ const Products = (props) => {
             ) : (
                 <FlatList 
                     data={productFilter}
-                    // ListHeaderComponent={ListHeader}
+                    ListHeaderComponent={ListHeader}
                     renderItem={({ item, index }) => (
                         <ListItem
                             {...item}
@@ -78,5 +102,24 @@ const Products = (props) => {
         </V>
     )
 }
+
+
+const styles = SS.create({
+    listHeader: {
+        flexDirection: 'row',
+        padding: 5,
+        backgroundColor: 'gainsboro'
+    },
+    headerItem: {
+        margin: 3,
+        width: width / 6
+    },
+    spinner: {
+        height: height / 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+})
+
 
 export default Products;
