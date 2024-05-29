@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
 
 import {Left, Right, Container, H1}  from 'native-base'
@@ -6,13 +6,35 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
 import Toast from "react-native-toast-message";
 import EasyButton from '../../Shared/StyledComponents/EasyButton';
+import TrafficLight from '../../Shared/StyledComponents/TrafficLight';
 
 const SingleProduct = (props) => {
     
     const [ item, setItem ] = useState(props.route.params.item);
-    const [ availability, setAvailability] = useState('');
+    const [ availability, setAvailability] = useState(null);
+    const [availabilityText, setAvailabilityText] = useState("")
 
     const dispatch = useDispatch()
+
+    
+    useEffect(() => {
+        if (props.route.params.item.countInStock == 0) {
+            setAvailability(<TrafficLight unavailable></TrafficLight>);
+            setAvailabilityText("Unvailable")
+        } else if (props.route.params.item.countInStock <= 5) {
+            setAvailability(<TrafficLight limited></TrafficLight>);
+            setAvailabilityText("Limited Stock")
+        } else {
+            setAvailability(<TrafficLight available></TrafficLight>);
+            setAvailabilityText("Available")
+        }
+
+        return () => {
+            setAvailability(null);
+            setAvailabilityText("");
+        }
+    }, [])
+
 
     return (
         <Container style={styles.container}>
@@ -29,6 +51,16 @@ const SingleProduct = (props) => {
                     <T style={styles.contentText}>{item.brand}</T>
                 </V>
                 {/* TODO: Description, Rich Description and Availability */}
+                
+                <V style={styles.availabilityContainer}>
+                    <V style={styles.availability}>
+                        <T style={{ marginRight: 10 }}>
+                            Availability: {availabilityText}
+                        </T>
+                        {availability}
+                    </V>
+                    <T>{item.description}</T>
+                </V>
             </SV>
 
             <V style={styles.bottomContainer}>
@@ -95,6 +127,14 @@ const styles = SS.create({
         fontSize: 25,
         margin: 20, 
         color: 'red'
+    },
+    availabilityContainer: {
+        marginBottom: 20,
+        alignItems: "center"
+    },
+    availability: {
+        flexDirection: 'row',
+        marginBottom: 10,
     }
 })
 
