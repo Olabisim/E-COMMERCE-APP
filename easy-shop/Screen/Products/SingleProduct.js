@@ -5,6 +5,7 @@ import {Left, Right, Container, H1}  from 'native-base'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/features/carts/cartSlice';
 import Toast from "react-native-toast-message";
+import EasyButton from '../../Shared/StyledComponents/EasyButton';
 
 const SingleProduct = (props) => {
     
@@ -35,7 +36,8 @@ const SingleProduct = (props) => {
                     <T>$ {item.price}</T>
                 </Left>
                 <Right>
-                    <B 
+                    <EasyButton
+                        primary medium
                         onPress={() => {
                             dispatch(addToCart(item)),
                             Toast.show({
@@ -44,9 +46,10 @@ const SingleProduct = (props) => {
                                 text1: `${item.name} - added to Cart`,
                                 text2: "Go to your cart to complete order",
                               })
-                        }}
-                        title="Add" 
-                    />  
+                        }} 
+                    >
+                        <T style={{color: 'white'}}>Add</T>
+                    </EasyButton>  
                 </Right>
             </V>
         </Container>

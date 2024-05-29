@@ -5,6 +5,7 @@ import Input from '../../Shared/Form/Input2'
 import Error from '../../Shared/Error'
 import AuthGlobal from '../../Context/store/AuthGlobal'
 import { loginUser } from '../../Context/actions/Auth.actions'
+import EasyButton from '../../Shared/StyledComponents/EasyButton'
 // import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -68,12 +69,16 @@ const Login = (props) => {
             
             <V style={styles.buttonGroup}>
                 {error ? <Error message={error} /> : null }
-                <B title="Login" onPress={() => handleSubmit()} />
+                <EasyButton large primary onPress={() => handleSubmit()}>
+                    <T style={{color: 'white'}}>Login</T>
+                </EasyButton>
             </V>
 
             <V style={[{marginTop: 40}, styles.buttonGroup]}>
                 <T style={styles.middleText}>Don't have an account yet?</T>
-                <B title="Register" onPress={() => props.navigation.navigate("Register")} />
+                <EasyButton  large secondary onPress={() => props.navigation.navigate("Register")}>
+                    <T style={{color: 'white'}}>Register</T>
+                </EasyButton>
             </V>
 
         </FormContainer>

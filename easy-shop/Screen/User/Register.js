@@ -7,6 +7,7 @@ import Error from '../../Shared/Error';
 import baseURL from '../../assets/common/baseUrl';
 import axios from 'axios';
 import Toast from "react-native-toast-message";
+import EasyButton from '../../Shared/StyledComponents/EasyButton';
 
 
 const Register = (props) => {
@@ -102,11 +103,16 @@ const Register = (props) => {
                     {error ? <Error message={error} /> : null}
                 </V>
                 <V>
-                    <B title={"Register"} onPress={() => register()} />
+                    <EasyButton large primary onPress={() => register()}>
+                        <T style={{color: 'white'}}>Register</T>
+                    </EasyButton>
                 </V>
                 
                 <V>
-                    <B title={"Back to Login"} onPress={() => props.navigation.navigate("Login")} />
+                    <EasyButton large secondary onPress={() => props.navigation.navigate("Login")}>
+                      <T style={{color: 'white'}}>Back to Login</T>
+                    </EasyButton>
+
                 </V>
 
             </FormContainer>
