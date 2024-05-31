@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/FontAwesome"
 import Toast from "react-native-toast-message"
 import baseURL from "../../assets/common/baseUrl"
 import axios from "axios"
-// import * as ImagePicker from "expo-image-picker"
+import * as ImagePicker from "expo-image-picker"
 // import mime from "mime";
 
 const ProductForm = (props) => {
@@ -42,6 +42,18 @@ const ProductForm = (props) => {
             .then((res) => setCategories(res.data.data))
             .catch((error) => alert("Error to load categories"));
 
+        // Image Picker
+        (async () => {
+            if (Platform.OS !== "web") {
+                const {
+                    status,
+                } = await ImagePicker.requestCameraPermissionsAsync();
+                if (status !== "granted") {
+                    alert("Sorry, we need camera roll permissions to make this work!")
+                }
+            }
+        })();
+
 
         return () => {
             setCategories([])
@@ -49,12 +61,27 @@ const ProductForm = (props) => {
 
     }, [])
 
+    
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1
+        });
+
+        if (!result.canceled) {
+            setMainImage(result.assets[0].uri);
+            setImage(result.assets[0].uri);
+        }
+    };
+
 
     return (
        <FormContainer title="Add Product">
            <View style={styles.imageContainer}>
                <Image style={styles.image} source={{uri: mainImage}}/>
-               <TouchableOpacity style={styles.imagePicker}>
+               <TouchableOpacity onPress={() => pickImage()} style={styles.imagePicker}>
                    <Icon style={{ color: "white"}} name="camera"/>
                </TouchableOpacity>
            </View>
@@ -167,7 +194,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 100,
         borderColor: "#E0E0E0",
-        elevation: 10
+        // elevation: 10
     },
     image: {
         width: "100%",

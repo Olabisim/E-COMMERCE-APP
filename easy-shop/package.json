@@ -19,6 +19,7 @@
     "axios": "^1.6.8",
     "core-js": "^3.37.1",
     "expo": "~50.0.19",
+    "expo-image-picker": "^15.0.5",
     "expo-status-bar": "~1.11.1",
     "jwt-decode": "^4.0.0",
     "native-base": "^2.15.2",
