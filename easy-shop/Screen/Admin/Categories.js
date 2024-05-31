@@ -94,16 +94,12 @@ const Categories = (props) => {
         axios
             .delete(`${baseURL}category/${id}`, config)
             .then((res) => {
-                const newCategories = categories.filter((item) => item.id !== id);
+                const newCategories = categories.filter((item) => item._id !== id);
                 setCategories(newCategories);
             })
             .catch((error) => alert("Error to load categories"));
     }
-
-    useEffect(() => {
-
-    }, [categories])
-
+    
     return (
         <View style={{ position: "relative", height: "100%"}}>
             <View style={{ marginBottom: 60 }}>
