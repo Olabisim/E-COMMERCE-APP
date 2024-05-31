@@ -16,12 +16,15 @@ var { width } = Dimensions.get("window")
 
 
 const Item = (props) => {
+    console.log('props.item._id')
+    console.log(props.item._id)
     return (
         <View style={styles.item}>
             <Text>{props.item.name}</Text>
             <EasyButton
                 danger
                 medium
+                onPress={() => props.delete(props.item._id)}
             >
                 <Text style={{ color: "white", fontWeight: "bold"}}>Delete</Text>
             </EasyButton>
@@ -53,15 +56,63 @@ const Categories = (props) => {
         }
     }, [])
 
+
+    console.log('categories')
+    console.log(categories)
+
+    // adding category
+
+    const addCategory = () => {
+        const category = {
+            name: categoryName
+        };
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        };
+
+        axios
+            .post(`${baseURL}category`, category, config)
+            .then((res) => {console.log('res.data');console.log(res.data);setCategories([...categories, res.data])})
+            .catch((error) => alert("Error to load categories"));
+
+        setCategoryName("");
+    }
+
+
+    // Delete Category
+    
+    const deleteCategory = (id) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        };
+
+        axios
+            .delete(`${baseURL}category/${id}`, config)
+            .then((res) => {
+                const newCategories = categories.filter((item) => item.id !== id);
+                setCategories(newCategories);
+            })
+            .catch((error) => alert("Error to load categories"));
+    }
+
+    useEffect(() => {
+
+    }, [categories])
+
     return (
         <View style={{ position: "relative", height: "100%"}}>
             <View style={{ marginBottom: 60 }}>
                 <FlatList 
                     data={categories}
                     renderItem={({ item, index }) => (
-                        <Item item={item} index={index} />
+                        <Item item={item} index={index} delete={deleteCategory} />
                     )}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item._id}
                 />
             </View>
             <View style={styles.bottomBar}>
@@ -79,6 +130,7 @@ const Categories = (props) => {
                     <EasyButton
                         medium
                         primary
+                        onPress={() => addCategory()}
                     >
                         <Text style={{ color: "white", fontWeight: "bold"}}>Submit</Text>
                     </EasyButton>
