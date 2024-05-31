@@ -38,9 +38,9 @@ router.post('/', async (req, res) => {
         let category = new Category({
                 name, color, icon
         })
-
+        
         category = await category.save()
-        if(!category) return res.status(404).json({success: false, message: "category cannot be created! "})
+        if(!category) return res.status(404).json({success: false, message: "category cannot be created!", data: category})
         
         return res.status(200).json({success: true, message: "category saved successfully to the database"})
 })
