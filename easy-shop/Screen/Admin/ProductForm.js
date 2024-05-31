@@ -32,14 +32,51 @@ const ProductForm = (props) => {
     const [numReviews, setNumReviews] = useState(0);
     const [item, setItem] = useState(null);
 
+
+
+    useEffect(() => {
+
+        // Categories
+        axios
+            .get(`${baseURL}category`)
+            .then((res) => setCategories(res.data.data))
+            .catch((error) => alert("Error to load categories"));
+
+
+        return () => {
+            setCategories([])
+        }
+
+    }, [])
+
+
     return (
        <FormContainer title="Add Product">
-           <View >
-               <Image source={{uri: mainImage}}/>
-               <TouchableOpacity>
+           <View style={styles.imageContainer}>
+               <Image style={styles.image} source={{uri: mainImage}}/>
+               <TouchableOpacity style={styles.imagePicker}>
                    <Icon style={{ color: "white"}} name="camera"/>
                </TouchableOpacity>
            </View>
+           
+           <Item picker>
+                <Picker
+                    mode="dropdown"
+                    iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
+                    style={{ width: undefined }}
+                    placeholder="Select your Category"
+                    selectedValue={pickerValue}
+                    placeholderStyle={{ color: "#007aff"}}
+                    placeholderIconColor="#007aff"
+                    onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
+                >
+                    
+                     {/* <Picker.Item key='{c.id}' label='{c.name}' value='{c.id}' /> */}
+                    {categories && categories.map((c) => {
+                        return <Picker.Item key={c.id} label={c.name} value={c.id} />
+                    })}
+                </Picker>
+           </Item>
            <View style={styles.label}>
                <Text style={{ textDecorationLine: "underline"}}>Brand</Text>
            </View>
