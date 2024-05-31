@@ -11,7 +11,7 @@ import baseURL from "../../assets/common/baseUrl"
 import axios from "axios"
 import * as ImagePicker from "expo-image-picker"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-// import mime from "mime";
+import mime from "mime";
 
 const ProductForm = (props) => {
 
@@ -101,6 +101,14 @@ const ProductForm = (props) => {
 
         let formData = new FormData();
 
+        const newImageUri = "file:///" + image.split("file:/").join("");
+
+        formData.append("image", {
+            uri: newImageUri,
+            type: mime.getType(newImageUri),
+            name: newImageUri.split("/").pop()
+        });
+
         formData.append("name", name);
         formData.append("brand", brand);
         formData.append("price", price);
@@ -140,7 +148,7 @@ const ProductForm = (props) => {
                     topOffset: 60,
                         type: "error",
                         text1: "Something went wrong",
-                        text2: error
+                        text2: `${error}`
                 })
             })
     }
