@@ -147,7 +147,7 @@ router.delete('/:id', ({params}, res) => {
 
         Product.findByIdAndRemove(params.id)
 
-        .then(category => {res.status(400).json({success: true, message: "category deleted from the database", category})})
+        .then(category => {res.status(200).json({success: true, message: "category deleted from the database", category})})
 
         .catch(err => res.status(404).json({success: false, message: "category not found", err}))
 })
