@@ -59,7 +59,7 @@ const Main = () => {
                 }}
             />
             
-            {context.stateUser.user.isAdmin == true && (
+            {/* {context.stateUser.user.isAdmin == true && ( */}
 
                 <Tab.Screen 
                     name='Admin'
@@ -75,7 +75,7 @@ const Main = () => {
                         )
                     }}
                 />
-            )}
+            {/* )} */}
 
             <Tab.Screen 
                 name='User'
