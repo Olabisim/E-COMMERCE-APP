@@ -59,24 +59,6 @@ const ProductForm = (props) => {
                </TouchableOpacity>
            </View>
            
-           <Item picker>
-                <Picker
-                    mode="dropdown"
-                    iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
-                    style={{ width: undefined }}
-                    placeholder="Select your Category"
-                    selectedValue={pickerValue}
-                    placeholderStyle={{ color: "#007aff"}}
-                    placeholderIconColor="#007aff"
-                    onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
-                >
-                    
-                     {/* <Picker.Item key='{c.id}' label='{c.name}' value='{c.id}' /> */}
-                    {categories && categories.map((c) => {
-                        return <Picker.Item key={c.id} label={c.name} value={c.id} />
-                    })}
-                </Picker>
-           </Item>
            <View style={styles.label}>
                <Text style={{ textDecorationLine: "underline"}}>Brand</Text>
            </View>
@@ -129,6 +111,34 @@ const ProductForm = (props) => {
                 value={description}
                 onChangeText={(text) => setDescription(text)}
             />
+            <Item picker>
+                 <Picker
+                     mode="dropdown"
+                     iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
+                     style={{ width: undefined }}
+                     placeholder="Select your Category"
+                     selectedValue={pickerValue}
+                     placeholderStyle={{ color: "#007aff"}}
+                     placeholderIconColor="#007aff"
+                     onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
+                 >
+                     
+                      {/* <Picker.Item key='{c.id}' label='{c.name}' value='{c.id}' /> */}
+                     {categories && categories.map((c) => {
+                         return <Picker.Item key={c.id} label={c.name} value={c.id} />
+                     })}
+                 </Picker>
+            </Item>
+           {err ? <Error message={err} /> : null}
+           <View style={styles.buttonContainer}>
+               <EasyButton
+                large
+                primary
+                onPress={() => addProduct()}               
+               >
+                   <Text style={styles.buttonText}>Confirm</Text>
+               </EasyButton>
+           </View>
        </FormContainer>
     )
 }
@@ -139,6 +149,40 @@ const styles = StyleSheet.create({
         width: "80%",
         marginTop: 10
     },
+    buttonContainer: {
+        width: "80%",
+        marginBottom: 80,
+        marginTop: 20,
+        alignItems: "center"
+    },
+    buttonText: {
+        color: "white"
+    },
+    imageContainer: {
+        width: 200,
+        height: 200,
+        borderStyle: "solid",
+        borderWidth: 8,
+        padding: 0,
+        justifyContent: "center",
+        borderRadius: 100,
+        borderColor: "#E0E0E0",
+        elevation: 10
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 100
+    },
+    imagePicker: {
+        position: "absolute",
+        right: 5,
+        bottom: 5,
+        backgroundColor: "grey",
+        padding: 8,
+        borderRadius: 100,
+        elevation: 20
+    }
 })
 
 export default ProductForm;
