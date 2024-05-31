@@ -4,15 +4,61 @@ import { Text, Left, Right, ListItem, Thumbnail, Body } from "native-base";
 import { clearCart } from '../../../Redux/features/carts/cartSlice';
 import { useDispatch } from 'react-redux';
 
+import Toast from "react-native-toast-message";
+import axios from "axios";
+import baseURL from "../../../assets/common/baseUrl";
+
 var {height, width} = D.get('window')
 
 const Confirm = (props) => {
 
     const dispatch = useDispatch()
 
+    // extra porperties passed from the checkout page
     const finalOrder = props.route.params;
 
     const  confirmOrder = () => {
+
+        const order = finalOrder.order.order;
+
+        console.log('order')
+        console.log(order)
+
+        
+        const config = {
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        };
+
+        
+        axios
+            .post(`${baseURL}orders`, order, config)
+            .then((res) => {
+                if (res.status == 200 || res.status == 201) {
+                    Toast.show({
+                        topOffset: 60,
+                        type: "success",
+                        text1: "Order Completed",
+                        text2: "",
+                    });
+                    setTimeout(() => {
+                        props.clearCart();
+                        props.navigation.navigate("Cart");
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                console.log('error')
+                console.log(error)
+                Toast.show({
+                topOffset: 60,
+                type: "error",
+                text1: "Something went wrong",
+                text2: "Please try again",
+                });
+            });
+
         setTimeout(() => {
             dispatch(clearCart());
             props.navigation.navigate("CartHome")
