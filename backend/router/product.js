@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.post('/', uploadOptions.single('image'), async (req, res) => {
+router.post('/', uploadOptions.single('file'), async (req, res) => {
 
         const category = await Category.findById(req.body.category);
         if (!category) return res.status(400).send('Invalid Category');
