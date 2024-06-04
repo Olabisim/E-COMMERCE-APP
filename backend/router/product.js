@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.post('/', uploadOptions.single('file'), async (req, res) => {
+router.post('/', uploadOptions.single('image'), async (req, res) => {
 
         console.log("entered the route function post request")
 

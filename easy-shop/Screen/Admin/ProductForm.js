@@ -88,6 +88,7 @@ const ProductForm = (props) => {
 
     
     const addProduct = () => {
+        console.log('entered the add product')
         if (
             name == "" ||
             brand == "" ||
@@ -109,6 +110,9 @@ const ProductForm = (props) => {
             name: newImageUri.split("/").pop()
         });
 
+        console.log('newImageUri')
+        console.log(newImageUri)
+
         formData.append("name", name);
         formData.append("brand", brand);
         formData.append("price", price);
@@ -121,12 +125,17 @@ const ProductForm = (props) => {
         formData.append("isFeatured", isFeatured);
 
         
+        console.log('created all forms.append')
+
+        
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`
             }
         }
+
+        console.log('entering axios call')
 
         axios
             .post(`${baseURL}products`, formData, config)
@@ -151,6 +160,8 @@ const ProductForm = (props) => {
                         text2: `${error}`
                 })
             })
+            
+            console.log('end axios call')
     }
 
     return (
