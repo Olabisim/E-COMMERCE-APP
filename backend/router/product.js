@@ -77,13 +77,18 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', uploadOptions.single('file'), async (req, res) => {
 
-        const category = await Category.findById(req.body.category);
-        if (!category) return res.status(400).send('Invalid Category');
+        console.log("entered the route function post request")
+
+        // const category = await Category.findById(req.body.category);
+        // if (!category) return res.status(400).send('Invalid Category');
     
         const file = req.file;
         if (!file) return res.status(400).send('No image in the request');
     
         const fileName = file.filename;
+
+        
+        console.log("passed the file creation request function post request")
 
 
         // req.get('host') this is the way to get the host from the request.
@@ -102,6 +107,8 @@ router.post('/', uploadOptions.single('file'), async (req, res) => {
             numReviews: req.body.numReviews,
             isFeatured: req.body.isFeatured,
         });
+        
+        console.log("created the product in the model Product!")
     
         product = await product.save();
     
