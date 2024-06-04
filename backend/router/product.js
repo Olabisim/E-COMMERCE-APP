@@ -77,6 +77,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', uploadOptions.single('image'), async (req, res) => {
 
+        res.send('passed the upload file middleware part')
+
         console.log("entered the route function post request")
 
         // const category = await Category.findById(req.body.category);
