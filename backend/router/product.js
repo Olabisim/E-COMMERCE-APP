@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.post('/', uploadOptions.single('image'), async (req, res) => {
+router.post('/', async (req, res) => {
 
         res.send('passed the upload file middleware part')
 
