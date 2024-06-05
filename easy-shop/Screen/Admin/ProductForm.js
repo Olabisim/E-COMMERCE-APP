@@ -29,7 +29,7 @@ const ProductForm = (props) => {
     const [countInStock, setCountInStock] = useState();
     const [rating, setRating] = useState(0);
     const [isFeatured, setIsFeature] = useState(false);
-    const [richDescription, setRichDescription] = useState();
+    const [richDescription, setRichDescription] = useState('');
     const [numReviews, setNumReviews] = useState(0);
     const [item, setItem] = useState(null);
 
@@ -87,6 +87,12 @@ const ProductForm = (props) => {
     };
 
     
+        
+    console.log('categories')
+    console.log(categories)
+
+
+    
     const addProduct = () => {
         console.log('entered the add product')
         if (
@@ -100,45 +106,47 @@ const ProductForm = (props) => {
             setError("Please fill in the form correctly")
         }
 
-        let formData = new FormData();
+        // let formData = new FormData();
 
-        const newImageUri = "file:///" + image.split("file:/").join("");
+        // const newImageUri = "file:///" + image.split("file:/").join("");
 
-        formData.append("image", {
-            uri: newImageUri,
-            type: mime.getType(newImageUri),
-            name: newImageUri.split("/").pop()
-        });
+        // formData.append("image", {
+        //     uri: newImageUri,
+        //     type: mime.getType(newImageUri),
+        //     name: newImageUri.split("/").pop()
+        // });
 
-        console.log('newImageUri')
-        console.log(newImageUri)
+        // console.log('newImageUri')
+        // console.log(newImageUri)
 
-        formData.append("name", name);
-        formData.append("brand", brand);
-        formData.append("price", price);
-        formData.append("description", description);
-        formData.append("category", category);
-        formData.append("countInStock", countInStock);
-        formData.append("richDescription", richDescription);
-        formData.append("rating", rating);
-        formData.append("numReviews", numReviews);
-        formData.append("isFeatured", isFeatured);
-
-        
-        console.log('created all forms.append')
+        // formData.append("name", name);
+        // formData.append("brand", brand);
+        // formData.append("price", price);
+        // formData.append("description", description);
+        // formData.append("category", category);
+        // formData.append("countInStock", countInStock);
+        // formData.append("richDescription", richDescription);
+        // formData.append("rating", rating);
+        // formData.append("numReviews", numReviews);
+        // formData.append("isFeatured", isFeatured);
 
         
         const config = {
             headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
         }
 
-        console.log('entering axios call')
+        let body = {
+            name, brand, price: Number(price), description, category, countInStock: Number(countInStock), richDescription, rating: Number(rating), numReviews, isFeatured: false
+        }
+
+        console.log(body)
+        console.log('body')
 
         axios
-            .post(`${baseURL}products`, formData, config)
+            .post(`${baseURL}products`, body, config)
             .then((res) => {
                 if(res.status == 200 || res.status == 201) {
                     Toast.show({
@@ -239,7 +247,7 @@ const ProductForm = (props) => {
                      
                       {/* <Picker.Item key='{c.id}' label='{c.name}' value='{c.id}' /> */}
                      {categories && categories.map((c) => {
-                         return <Picker.Item key={c.id} label={c.name} value={c.id} />
+                         return <Picker.Item key={c.id} label={c.name} value={c._id} />
                      })}
                  </Picker>
             </Item>
