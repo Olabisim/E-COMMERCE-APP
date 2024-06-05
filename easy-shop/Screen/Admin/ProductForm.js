@@ -16,17 +16,17 @@ import mime from "mime";
 const ProductForm = (props) => {
 
     const [pickerValue, setPickerValue] = useState();
-    const [brand, setBrand] = useState();
-    const [name, setName] = useState();
-    const [price, setPrice] = useState();
-    const [description, setDescription] = useState();
-    const [image, setImage] = useState();
-    const [mainImage, setMainImage] = useState();
-    const [category, setCategory] = useState();
+    const [brand, setBrand] = useState(props.route.params?.item.brand);
+    const [name, setName] = useState(props.route.params?.item.name);
+    const [price, setPrice] = useState(props.route.params?.item.price.toString());
+    const [description, setDescription] = useState(props.route.params?.item.description);
+    const [image, setImage] = useState(props.route.params?.item?.image);
+    const [mainImage, setMainImage] = useState(props.route.params?.item?.image);
+    const [category, setCategory] = useState(props.route.params?.item.category._id);
     const [categories, setCategories] = useState([]);
     const [token, setToken] = useState();
     const [err, setError] = useState();
-    const [countInStock, setCountInStock] = useState();
+    const [countInStock, setCountInStock] = useState(props.route.params?.item.countInStock.toString());
     const [rating, setRating] = useState(0);
     const [isFeatured, setIsFeature] = useState(false);
     const [richDescription, setRichDescription] = useState('');
@@ -36,6 +36,23 @@ const ProductForm = (props) => {
 
 
     useEffect(() => {
+
+        
+        if(!props.route.params) setItem(null)
+        else setItem(props.route.params?.item);
+        
+        // if(!props.route.params) setItem(null)
+        // else {
+        //     setItem(props.route.params?.item);
+        //     setBrand(props.route.params?.item.brand);
+        //     setName(props.route.params?.item.name);
+        //     setPrice(props.route.params?.item.price.toString());
+        //     setDescription(props.route.params?.item.description);
+        //     setMainImage(props.route.params?.item?.image);
+        //     setImage(props.route.params?.item.image);
+        //     setCategory(props.route.params?.item.category._id);
+        //     setCountInStock(props.route.params?.item.countInStock.toString());
+        // }
 
 
         // Getting the token on mounting 
@@ -85,11 +102,6 @@ const ProductForm = (props) => {
             setImage(result.assets[0].uri);
         }
     };
-
-    
-        
-    console.log('categories')
-    console.log(categories)
 
 
     
@@ -145,31 +157,60 @@ const ProductForm = (props) => {
         console.log(body)
         console.log('body')
 
-        axios
-            .post(`${baseURL}products`, body, config)
-            .then((res) => {
-                if(res.status == 200 || res.status == 201) {
+
+        
+        if(item !== null) {
+            axios
+                .put(`${baseURL}products/${item._id}`, body, config)
+                .then((res) => {
+                    if(res.status == 200 || res.status == 201) {
+                        Toast.show({
+                            topOffset: 60,
+                            type: "success",
+                            text1: "Product successfuly updated",
+                            text2: ""
+                        });
+                        setTimeout(() => {
+                            props.navigation.navigate("Products");
+                        }, 500)
+                    }
+                })
+                .catch((error) => {
                     Toast.show({
                         topOffset: 60,
-                        type: "success",
-                        text1: "New Product added",
-                        text2: ""
-                    });
-                    setTimeout(() => {
-                        props.navigation.navigate("Products");
-                    }, 500)
-                }
-            })
-            .catch((error) => {
-                Toast.show({
-                    topOffset: 60,
-                        type: "error",
-                        text1: "Something went wrong",
-                        text2: `${error}`
+                            type: "error",
+                            text1: "Something went wrong",
+                            text2: `${error}`
+                    })
                 })
-            })
-            
-            console.log('end axios call')
+        }
+        else {
+            axios
+                .post(`${baseURL}products`, body, config)
+                .then((res) => {
+                    if(res.status == 200 || res.status == 201) {
+                        Toast.show({
+                            topOffset: 60,
+                            type: "success",
+                            text1: "New Product added",
+                            text2: ""
+                        });
+                        setTimeout(() => {
+                            props.navigation.navigate("Products");
+                        }, 500)
+                    }
+                })
+                .catch((error) => {
+                    Toast.show({
+                        topOffset: 60,
+                            type: "error",
+                            text1: "Something went wrong",
+                            text2: `${error}`
+                    })
+                })
+        }
+
+
     }
 
     return (

@@ -151,12 +151,49 @@ router.post('/', async (req, res) => {
 
 
 
+// *****************************************************************************************
+// upload pic with post request not working on vercel - Need to check this out in the future
+// *****************************************************************************************
 
-router.put('/:id', uploadOptions.single('image'), async ({params, body, file, protocol, get}, res) => {
+// router.put('/:id', uploadOptions.single('image'), async ({params, body, file, protocol, get}, res) => {
+
+//         // checking for invalid object id
+//         if(!mongoose.isValidObjectId(params.id)) return res.status(400).send('Invalid Product Id')
+
+
+//         Category.findById(body.category)
+//         .then(category => {if (!category) res.status(400).json({success: false, message: "category not found"})})
+
+//         const product = await Product.findById(params.id);
+//         if(!product) return res.status(400).send('Invalid Product!');
+
+//         let imagepath;
+        
+//         if (file) {
+//                 const fileName = file.filename;
+//                 const basePath = `${protocol}://${get('host')}/public/uploads/`;
+//                 imagepath = `${basePath}${fileName}`;
+//         } else {
+//                 imagepath = product.image;
+//         }
+        
+//         const {name,description, richDescription, price, category, countInStock, rating, numReviews, isFeatured} = body;
+
+//         Product.findByIdAndUpdate(params.id, {name,description, richDescription, image: imagepath, price, category, countInStock, rating, numReviews, isFeatured}, {new: true})
+
+//         .then((data) => res.status(200).json({success: true, data }))
+
+//         .catch(err => res.status(500).json({err}))
+
+// })
+
+
+
+
+router.put('/:id', async ({params, body}, res) => {
 
         // checking for invalid object id
         if(!mongoose.isValidObjectId(params.id)) return res.status(400).send('Invalid Product Id')
-
 
         Category.findById(body.category)
         .then(category => {if (!category) res.status(400).json({success: false, message: "category not found"})})
@@ -164,25 +201,17 @@ router.put('/:id', uploadOptions.single('image'), async ({params, body, file, pr
         const product = await Product.findById(params.id);
         if(!product) return res.status(400).send('Invalid Product!');
 
-        let imagepath;
-        
-        if (file) {
-                const fileName = file.filename;
-                const basePath = `${protocol}://${get('host')}/public/uploads/`;
-                imagepath = `${basePath}${fileName}`;
-        } else {
-                imagepath = product.image;
-        }
-        
-        const {name,description, richDescription, price, category, countInStock, rating, numReviews, isFeatured} = body;
+        const {name,description, richDescription, price, category, countInStock, rating, numReviews, isFeatured, image} = body;
 
-        Product.findByIdAndUpdate(params.id, {name,description, richDescription, image: imagepath, price, category, countInStock, rating, numReviews, isFeatured}, {new: true})
+        Product.findByIdAndUpdate(params.id, {name,description, richDescription, image, price, category, countInStock, rating, numReviews, isFeatured}, {new: true})
 
         .then((data) => res.status(200).json({success: true, data }))
 
         .catch(err => res.status(500).json({err}))
 
 })
+
+
 
 router.delete('/:id', ({params}, res) => {
 
