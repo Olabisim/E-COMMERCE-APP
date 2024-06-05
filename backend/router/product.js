@@ -74,33 +74,64 @@ router.get('/:id', async (req, res) => {
         res.status(200).json({success: true, data: product})
 })
 
+// *****************************************************************************************
+// upload pic with post request not working on vercel - Need to check this out in the future
+// *****************************************************************************************
+
+// router.post('/', uploadOptions.single('image'), async (req, res) => {
+
+//         console.log("entered the route function post request")
+
+//         // const category = await Category.findById(req.body.category);
+//         // if (!category) return res.status(400).send('Invalid Category');
+    
+//         const file = req.file;
+//         if (!file) return res.status(400).send('No image in the request');
+    
+//         const fileName = file.filename;
+
+        
+//         console.log("passed the file creation request function post request")
+
+
+//         // req.get('host') this is the way to get the host from the request.
+        
+//         const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+//         let product = new Product({
+//             name: req.body.name,
+//             description: req.body.description,
+//             richDescription: req.body.richDescription,
+//             image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
+//             brand: req.body.brand,
+//             price: req.body.price,
+//             category: req.body.category,
+//             countInStock: req.body.countInStock,
+//             rating: req.body.rating,
+//             numReviews: req.body.numReviews,
+//             isFeatured: req.body.isFeatured,
+//         });
+        
+//         console.log("created the product in the model Product!")
+    
+//         product = await product.save();
+    
+//         if (!product) return res.status(500).send('The product cannot be created');
+    
+//         res.send(product);
+                
+// })
+
 
 router.post('/', async (req, res) => {
 
-        res.send('passed the upload file middleware part')
-
-        console.log("entered the route function post request")
-
-        // const category = await Category.findById(req.body.category);
-        // if (!category) return res.status(400).send('Invalid Category');
-    
-        const file = req.file;
-        if (!file) return res.status(400).send('No image in the request');
-    
-        const fileName = file.filename;
-
+        const category = await Category.findById(req.body.category);
+        if (!category) return res.status(400).send('Invalid Category');
         
-        console.log("passed the file creation request function post request")
-
-
-        // req.get('host') this is the way to get the host from the request.
-        
-        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
         let product = new Product({
             name: req.body.name,
             description: req.body.description,
             richDescription: req.body.richDescription,
-            image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
+            image: ``,
             brand: req.body.brand,
             price: req.body.price,
             category: req.body.category,
@@ -109,8 +140,6 @@ router.post('/', async (req, res) => {
             numReviews: req.body.numReviews,
             isFeatured: req.body.isFeatured,
         });
-        
-        console.log("created the product in the model Product!")
     
         product = await product.save();
     
@@ -119,6 +148,9 @@ router.post('/', async (req, res) => {
         res.send(product);
                 
 })
+
+
+
 
 router.put('/:id', uploadOptions.single('image'), async ({params, body, file, protocol, get}, res) => {
 
