@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { StyleSheet as SS, Image as I, SafeAreaView as SAV, View as V, Dimensions as D, Text as T, ScrollView as SV, Button as B } from 'react-native';
 import {Item, Picker}  from 'native-base'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -7,6 +7,7 @@ import { cartSelector } from '../../../Redux/features/carts/cartSlice';
 import FormContainer from '../../../Shared/Form/FormContainer';
 import Input from '../../../Shared/Form/Input2';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AuthGlobal from '../../../Context/store/AuthGlobal';
 
 
 const countries = require("../../../assets/countries.json");
@@ -24,11 +25,18 @@ const Checkout = (props) => {
 
     const cartItems = useSelector(cartSelector)
 
+    const context = useContext(AuthGlobal)
+
+    // console.log('context.stateUser.user.userId')
+    // console.log(context.stateUser.user.userId)
+
     useEffect(() => {
         setOrderItems(cartItems)
+        setUser(context.stateUser.user.userId)
 
         return () => {
             setOrderItems()
+            setUser()
         }
     }, [])
 
