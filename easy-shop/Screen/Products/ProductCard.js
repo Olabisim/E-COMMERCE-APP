@@ -33,7 +33,9 @@ const ProductCard = (props) => {
                     ? 
                     (
                     <V style={{marginBottom: 0}}>
-                        <EasyButton 
+
+                        {/* old code */}
+                        {/* <EasyButton 
                             primary medium
                             onPress={() => {
                                 dispatch(addToCart(props)), 
@@ -46,6 +48,39 @@ const ProductCard = (props) => {
                             }} 
                         >
                             <T style={{color: 'white'}}>Add</T>
+                        </EasyButton> */}
+
+                        {/* "_id": "662639498ebaf8d7d994e42c",
+                        "brand": "product brand",
+                        "category": {},
+                        "countInStock": "23",
+                        "dateCreated": "2024-04-22T10:17:45.466Z",
+                        "description": "describing the value",
+                        "id": "662639498ebaf8d7d994e42c",
+                        "image": "https://e-commerce-app-lime-five.vercel.app/public/uploads/DARN-app-(2).jpg-1713781065264.jpeg",
+                        "images": [],
+                        "isFeatured": true,
+                        "name": "ola product ",
+                        "numReviews": 22,
+                        "price": 23,
+                        "rating": 3,
+                        "richDescription": "rich in descitption" */}
+
+                        <EasyButton 
+                            primary
+                            medium
+                            onPress={() => {
+                            dispatch(addToCart({name: props.name, brand: props.brand, description: props.description, image: props.image, product: props.id, quantity: 1, price: props.price})), 
+                            // props.addItemToCart(props.id),
+                            Toast.show({
+                            topOffset: 60,
+                            type: "success",
+                            text1: `${name} added to Cart`,
+                            text2: "Go to your cart to complete order"
+                            })
+                            }}
+                        >
+                            <T style={{ color: "white"}}>Add</T>
                         </EasyButton>
                     </V>
                     )

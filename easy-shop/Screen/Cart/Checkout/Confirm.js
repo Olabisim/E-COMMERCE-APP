@@ -43,7 +43,7 @@ const Confirm = (props) => {
                         text2: "",
                     });
                     setTimeout(() => {
-                        props.clearCart();
+                        clearCart();
                         props.navigation.navigate("Cart");
                     }, 500);
                 }

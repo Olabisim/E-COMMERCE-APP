@@ -82,6 +82,21 @@ const SingleProduct = (props) => {
                     >
                         <T style={{color: 'white'}}>Add</T>
                     </EasyButton>  
+                    {/* <EasyButton 
+                        primary
+                        medium
+                        onPress={() => {props.addItemToCart(item.id),
+                            Toast.show({
+                            topOffset: 60,
+                            type: "success",
+                            text1: `${item.name} added to Cart`,
+                            text2: "Go to your cart to complete order"
+                        })
+                        }}
+                        >
+                        <T style={{ color: 'white'}}>Add</T>
+                    </EasyButton> */}
+
                 </Right>
             </V>
         </Container>
