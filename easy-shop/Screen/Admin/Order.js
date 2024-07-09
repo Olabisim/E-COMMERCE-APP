@@ -33,7 +33,6 @@ const Orders = (props) => {
 
     return (
         <View>
-            <Text>This is some data</Text>
             <FlatList 
                 data={orderList?.data}
                 renderItem={({ item }) => (

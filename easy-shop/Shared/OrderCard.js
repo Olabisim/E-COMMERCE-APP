@@ -25,6 +25,9 @@ const OrderCard = (props) => {
     const [token, setToken] = useState();
     const [cardColor, setCardColor] = useState();
 
+    console.log('props')
+    console.log(props)
+
         
     useEffect(() => {
         if (props.editMode) {
@@ -56,6 +59,55 @@ const OrderCard = (props) => {
         };
 
     }, []);
+
+    
+    const updateOrder = () => {
+        const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        };
+
+        const order = {
+            city: props.city,
+            country: props.country,
+            dateOrdered: props.dateOrdered,
+            id: props.id,
+            orderItems: props.orderItems,
+            phone: props.phone,
+            shippingAddress1: props.shippingAddress1,
+            shippingAddress2: props.shippingAddress2,
+            status: statusChange,
+            totalPrice: props.totalPrice,
+            user: props.user,
+            zip: props.zip,
+        };
+
+        axios
+        .put(`${baseURL}orders/${props.id}`, order, config)
+        .then((res) => {
+            if (res.status == 200 || res.status == 201) {
+            Toast.show({
+                topOffset: 60,
+                type: "success",
+                text1: "Order Edited",
+                text2: "",
+            });
+            setTimeout(() => {
+                props.navigation.navigate("Products");
+            }, 500);
+            }
+        })
+        .catch((error) => {
+            Toast.show({
+            topOffset: 60,
+            type: "error",
+            text1: "Something went wrong",
+            text2: "Please try again",
+            });
+        });
+    };
+
 
     return (
         <View style={[{ backgroundColor: cardColor }, styles.container]}>
