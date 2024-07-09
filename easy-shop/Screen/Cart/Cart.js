@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {View as V, StyleSheet as SS, Dimensions as D, Text as T, FlatList as FL, Image as I, Button as B, TouchableOpacity as TO } from 'react-native';
 import {Container, Text, Left, Right, H1, ListItem, Thumbnail, Body, Icon}  from 'native-base'
@@ -6,10 +6,16 @@ import { cartSelector, clearCart, removeFromCart } from '../../Redux/features/ca
 import {SwipeListView} from 'react-native-swipe-list-view';
 import CartItem from './CartItem';
 import EasyButton from '../../Shared/StyledComponents/EasyButton';
+import AuthGlobal from '../../Context/store/AuthGlobal'
 
 var {height, width} = D.get("window")
 
 function Cart(props) {
+
+    const context = useContext(AuthGlobal)
+
+    console.log('context')
+    console.log(context.stateUser.isAuthenticated)
 
     const cartItems = useSelector(cartSelector)
 
@@ -67,9 +73,31 @@ function Cart(props) {
                                     </EasyButton>
                                 </Right>
                                 <Right>
+                                    {
+                                        context.stateUser.isAuthenticated ? (
+                                            <EasyButton
+                                                primary
+                                                medium 
+                                                onPress={() => props.navigation.navigate('Checkout')}
+                                            >
+                                                <T style={{color: 'white'}}>Checkout</T>
+                                            </EasyButton>
+                                        )
+                                        :
+                                        (
+                                            <EasyButton
+                                                secondary
+                                                medium 
+                                                onPress={() => props.navigation.navigate('User')}
+                                            >
+                                                <T style={{color: 'white'}}>Login</T>
+                                            </EasyButton>
+                                        )
+                                    }
+{/* 
                                     <EasyButton primary medium onPress={() => props.navigation.navigate('Checkout')}>
                                         <T style={{color: 'white'}}>Checkout</T>
-                                    </EasyButton>
+                                    </EasyButton> */}
                                 </Right>
                             </V>
                     </Container>
