@@ -7,12 +7,14 @@ import AuthGlobal from '../../Context/store/AuthGlobal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import baseURL from '../../assets/common/baseUrl'
 import { logoutUser } from '../../Context/actions/Auth.actions'
+import OrderCard from '../../Shared/OrderCard'
 
 
 const UserProfile = (props) => {
 
     const context = useContext(AuthGlobal)
     const [userProfile, setUserProfile] = useState()
+    const [orders, setOrders] = useState()
 
     useFocusEffect(
         useCallback(() => {
@@ -22,6 +24,17 @@ const UserProfile = (props) => {
         ) {
             props.navigation.navigate("Login")
         }
+
+        axios
+        .get(`${baseURL}orders`)
+        .then((x) => {
+            const data = x.data.data;
+            const userOrders = data.filter(
+                (order) => order.user._id === context.stateUser.user.userId
+            );
+            setOrders(userOrders);
+        })
+        .catch((error) => console.log(error))
 
         AsyncStorage.getItem("jwt")
             .then((res) => {
@@ -36,6 +49,7 @@ const UserProfile = (props) => {
 
         return () => {
             setUserProfile();
+            setOrders();
         }
 
     }, [context.stateUser.isAuthenticated]))
@@ -60,6 +74,20 @@ const UserProfile = (props) => {
                         AsyncStorage.removeItem("jwt"),
                         logoutUser(context.dispatch)
                     ]}/>
+               </V>
+               <V style={styles.order}>
+                   <T style={{ fontSize: 20 }}>My Orders</T>
+                   <V>
+                       {orders ? (
+                           orders.map((x) => {
+                               return <OrderCard key={x.id} {...x} />;
+                           })
+                       ) : (
+                           <V style={styles.order}>
+                               <T>You have no orders</T>
+                           </V>
+                       )}
+                   </V>
                </V>
             </SV>
         </Container>

@@ -78,7 +78,7 @@ router.post('/', async (req,res)=>{
             shippingAddress2: req.body.shippingAddress2,
             city: req.body.city,
             zip: req.body.zip,
-            country: req.body.country,
+            country: req.body.coNuntry,
             phone: req.body.phone,
             status: req.body.status,
             totalPrice: totalPrice,

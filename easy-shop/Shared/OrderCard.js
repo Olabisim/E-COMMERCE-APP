@@ -129,25 +129,36 @@ const OrderCard = (props) => {
                     <Text style={styles.price}>$ {props.totalPrice}</Text>
                 </View>
                 
-                <Picker
-                    mode="dropdown"
-                    iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
-                    style={{ width: undefined }}
-                    selectedValue={statusChange}
-                    placeholder="Change Status"
-                    placeholderIconColor={{ color: "#007aff" }}
-                    onValueChange={(e) => setStatusChange(e)}
-                >
-                {codes.map((c) => {
-                    return (
-                        <Picker.Item key={c.code} label={c.name} value={c.code} />
-                    );
-                })}
-                </Picker>
+                <View>
+                    {
+                        
+                    props.editMode 
+                    &&
+                    <>
+                        <Picker
+                            mode="dropdown"
+                            iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
+                            style={{ width: undefined }}
+                            selectedValue={statusChange}
+                            placeholder="Change Status"
+                            placeholderIconColor={{ color: "#007aff" }}
+                            onValueChange={(e) => setStatusChange(e)}
+                        >
+                        {codes.map((c) => {
+                            return (
+                                <Picker.Item key={c.code} label={c.name} value={c.code} />
+                            );
+                        })}
+                        </Picker>
+                        
+                        <EasyButton secondary large onPress={() => updateOrder()}>
+                            <Text style={{ color: "white" }}>Update</Text>
+                        </EasyButton>
+                    </>
+            
+                    }
+                </View>
                 
-                <EasyButton secondary large onPress={() => updateOrder()}>
-                    <Text style={{ color: "white" }}>Update</Text>
-                </EasyButton>
 
             </View>
         </View>

@@ -32,7 +32,23 @@ const Checkout = (props) => {
 
     useEffect(() => {
         setOrderItems(cartItems)
-        setUser(context.stateUser.user.userId)
+
+        
+        if(context.stateUser.isAuthenticated) {
+            // setUser(context.stateUser.user.sub)
+            setUser(context.stateUser.user.userId)
+        } else {
+            props.navigation.navigate("Cart");
+            Toast.show({
+                topOffset: 60,
+                type: "error",
+                text1: "Please Login to Checkout",
+                text2: ""
+            });
+        }
+
+
+        
 
         return () => {
             setOrderItems()
